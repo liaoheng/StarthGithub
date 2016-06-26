@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name" translatable="false">StarthGithub</string>
+  <string name="title_activity_login" translatable="false">Sign in</string>
+  <string name="title_activity_oauth" translatable="false">OAuth</string>
+  <string name="prompt_email_user_name" translatable="false">Username or email</string>
+  <string name="prompt_password" translatable="false">Password</string>
+  <string name="action_sign_in" translatable="false">Sign in</string>
+
+
+  <string name="title_activity_about">@string/about</string>
+  <string name="menu_user_info_follow">Follow</string>
+  <string name="menu_user_info_unfollow">Unfollow</string>
+  <string name="repositories">Repositories</string>
+  <string name="stars">Stars</string>
+  <string name="followers_me">Followers</string>
+  <string name="following_me">Following</string>
+  <string name="followers_another">Followers</string>
+  <string name="following_another">Following</string>
+  <string name="share">Share</string>
+  <string name="open_with_browser">Open With Browser</string>
+  <string name="copy_url">Copy URL</string>
+  <string name="about">About</string>
+  <string name="download">Download</string>
+  <string name="failed_to_download">Failed to download</string>
+  <string name="success">success</string>
+  <string name="fail">fail</string>
+</resources>

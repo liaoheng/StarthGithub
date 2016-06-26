@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="title_activity_about">@string/about</string>
+  <string name="menu_user_info_follow">关注</string>
+  <string name="menu_user_info_unfollow">取消关注</string>
+  <string name="repositories">资源库</string>
+  <string name="stars">Stars</string>
+  <string name="followers_me">关注我</string>
+  <string name="following_me">我关注</string>
+  <string name="followers_another">关注TA</string>
+  <string name="following_another">TA关注</string>
+  <string name="share">@string/lcp_share</string>
+  <string name="open_with_browser">@string/lcp_open_with_browser</string>
+  <string name="copy_url">@string/lcp_copy_url</string>
+  <string name="about">@string/lcp_about</string>
+  <string name="download">@string/lcp_download</string>
+  <string name="failed_to_download">无法下载</string>
+  <string name="success">@string/lcp_success</string>
+  <string name="fail">@string/lcp_fail</string>
+</resources>

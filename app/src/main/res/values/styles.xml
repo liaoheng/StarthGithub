@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <!--ActionBar base-->
+  <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+  </style>
+
+  <!--ActionBar-->
+  <style name="AppTheme" parent="AppBaseTheme"/>
+
+  <!--Toolbar base-->
+  <style name="AppBaseThemeToolBar" parent="NoActionBar">
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+  </style>
+
+  <!--Toolbar-->
+  <style name="AppThemeToolBar" parent="AppBaseThemeToolBar"/>
+
+  <!--NoActionBar-->
+  <style name="NoActionBar" parent="Theme.AppCompat.Light.NoActionBar"/>
+
+  <!--ActionBar 滑动返回-->
+  <style name="AppTheme.SwipeBack" parent="AppTheme">
+    <item name="android:windowIsTranslucent">true</item>
+    <item name="android:windowBackground">@android:color/transparent</item>
+  </style>
+
+  <!--NoActionBar 滑动返回-->
+  <style name="NoActionBar.SwipeBack" parent="NoActionBar">
+    <item name="android:windowIsTranslucent">true</item>
+    <item name="android:windowBackground">@android:color/transparent</item>
+  </style>
+
+  <!--ToolBar 滑动返回-->
+  <style name="AppThemeToolBar.SwipeBack" parent="AppThemeToolBar">
+    <item name="android:windowIsTranslucent">true</item>
+    <item name="android:windowBackground">@android:color/transparent</item>
+  </style>
+
+</resources>

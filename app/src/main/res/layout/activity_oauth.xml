@@ -1,0 +1,12 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+  <WebView
+      android:id="@+id/oauth_web_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"/>
+
+  <include layout="@layout/lcp_view_progress"/>
+</FrameLayout>

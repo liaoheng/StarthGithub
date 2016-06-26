@@ -1,0 +1,66 @@
+package me.liaoheng.github.starth.adapter;
+
+import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
+import com.github.liaoheng.common.plus.core.ListDuplicateHelper;
+import java.util.List;
+import me.liaoheng.github.starth.R;
+import me.liaoheng.github.starth.adapter.viewholder.FollowingViewHolder;
+import me.liaoheng.github.starth.model.Following;
+
+/**
+ * @author liaoheng
+ * @version 2016-06-25 19:44:38
+ */
+public class FollowingAdapter extends BaseAdapter<Following, FollowingViewHolder> {
+
+    ListDuplicateHelper<Following> mListDuplicateHelper;
+
+    public FollowingAdapter(Context context, List<Following> list) {
+        super(context, list);
+        mListDuplicateHelper = new ListDuplicateHelper<>(getList());
+    }
+
+    @Override public void add(Following o) {
+        mListDuplicateHelper.addDuplicate(o, o.getId());
+    }
+
+    @Override public void add(int index, Following o) {
+        mListDuplicateHelper.addDuplicate(index, o, o.getId());
+    }
+
+    @Override public void addAll(List<Following> list) {
+        mListDuplicateHelper.addAllDuplicate(list, new ListDuplicateHelper.Key<Following>() {
+            @Override public int getKey(Following item) {
+                return item.getId();
+            }
+        });
+    }
+
+    @Override public void addAll(int index, List<Following> list) {
+        mListDuplicateHelper.addAllDuplicate(index, list, new ListDuplicateHelper.Key<Following>() {
+            @Override public int getKey(Following item) {
+                return item.getId();
+            }
+        });
+    }
+
+    @Override public void update(List<Following> list) {
+        mListDuplicateHelper.updateDuplicate(list, new ListDuplicateHelper.Key<Following>() {
+            @Override public int getKey(Following item) {
+                return item.getId();
+            }
+        });
+    }
+
+    @Override public FollowingViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = inflate(R.layout.fragment_followers_item, parent, false);
+        return new FollowingViewHolder(view);
+    }
+
+    @Override public void onBindViewHolderItem(FollowingViewHolder holder, Following following,
+                                               int position) {
+        holder.onHandle(following);
+    }
+}

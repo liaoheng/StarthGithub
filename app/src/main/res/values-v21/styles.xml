@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <!--ActionBar-->
+  <style name="AppTheme" parent="AppBaseTheme">
+    <item name="android:windowContentTransitions">true</item>
+    <item name="android:windowAllowEnterTransitionOverlap">true</item>
+    <item name="android:windowAllowReturnTransitionOverlap">true</item>
+  </style>
+
+  <!--Toolbar-->
+  <style name="AppThemeToolBar" parent="AppBaseThemeToolBar">
+    <item name="android:windowContentTransitions">true</item>
+    <item name="android:windowAllowEnterTransitionOverlap">true</item>
+    <item name="android:windowAllowReturnTransitionOverlap">true</item>
+  </style>
+</resources>

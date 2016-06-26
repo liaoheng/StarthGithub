@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="me.liaoheng.github.starth">
+
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+  <application
+      android:name=".MApplication"
+      android:allowBackup="true"
+      android:icon="@mipmap/ic_launcher"
+      android:label="@string/app_name"
+      android:supportsRtl="true"
+      android:theme="@style/AppTheme">
+    <meta-data
+        android:name="com.github.liaoheng.common.plus.util.CPGlideModule"
+        android:value="GlideModule"/>
+
+    <activity
+        android:name=".ui.LaunchActivity"
+        android:configChanges="orientation|keyboardHidden|screenSize"
+        android:launchMode="singleInstance"
+        android:theme="@android:style/Theme.NoDisplay">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity>
+
+    <activity
+        android:label="Starth"
+        android:name=".ui.MainActivity"
+        android:configChanges="orientation|keyboardHidden|screenSize"
+        android:launchMode="singleInstance"
+        android:theme="@style/AppThemeToolBar"/>
+
+    <activity
+        android:name=".ui.UserInfoActivity"
+        android:configChanges="orientation|keyboardHidden|screenSize"
+        android:theme="@style/AppThemeToolBar.SwipeBack"/>
+
+    <activity
+        android:name=".ui.LoginActivity"
+        android:configChanges="orientation|keyboardHidden|screenSize"
+        android:label="@string/title_activity_login"/>
+
+    <activity
+        android:name=".ui.OAuthActivity"
+        android:configChanges="orientation|keyboardHidden|screenSize"
+        android:label="@string/title_activity_oauth"/>
+
+    <activity
+        android:theme="@style/AppTheme.SwipeBack"
+        android:name=".ui.AboutActivity"
+        android:configChanges="orientation|keyboardHidden|screenSize"
+        android:label="@string/title_activity_about"/>
+
+    <activity
+        android:name=".ui.WebViewActivity"
+        android:configChanges="orientation|keyboardHidden|screenSize"
+        android:theme="@style/AppThemeToolBar.SwipeBack"/>
+  </application>
+
+</manifest>
