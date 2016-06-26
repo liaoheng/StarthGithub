@@ -54,6 +54,7 @@ public class WebViewActivity extends BaseActivity {
         WebSettings settings = mWebHelper.getWebView().getWebView().getSettings();
         settings.setSupportZoom(true);
         settings.setBuiltInZoomControls(true);
+        settings.setDisplayZoomControls(false);
 
         String url = getIntent().getStringExtra("url");
         mWebHelper.loadUrl(url);

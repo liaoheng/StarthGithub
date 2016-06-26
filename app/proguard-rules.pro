@@ -15,24 +15,3 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
-
-#-dontwarn com.flyco.systembar.**
--dontwarn okio.**
-#-dontwarn okhttp3.**
--dontwarn retrofit2.**
--dontwarn org.joda.time.**
-#-dontwarn butterknife.**
--dontwarn com.squareup.**
-#-dontwarn org.apache.commons.io.**
-#-dontwarn org.greenrobot.eventbus.**
-#-dontwarn com.bumptech.glide.**
-#-dontwarn jp.wasabeef.glide.transformations.**
--dontwarn com.fasterxml.jackson.**
-#-dontwarn net.yslibrary.licenseadapter.**
-#-dontwarn com.orhanobut.logger.**
-#-dontwarn com.mugen.**
--dontwarn com.jakewharton.**
--dontwarn rx.**
-#-dontwarn com.trello.rxlifecycle.**
-#-dontwarn com.r0adkll.slidr.**
-#-dontwarn com.h6ah4i.android.tablayouthelper.**
