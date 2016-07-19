@@ -1,12 +1,13 @@
 package me.liaoheng.github.starth.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.io.Serializable;
 
 /**
  * @author liaoheng
  * @version 2016-06-25 13:25
  */
-@JsonIgnoreProperties(ignoreUnknown = true) public class Owner {
+@JsonIgnoreProperties(ignoreUnknown = true) public class Owner implements Serializable {
     private String  login;
     private int     id;
     private String  avatar_url;

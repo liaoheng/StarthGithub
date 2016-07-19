@@ -22,29 +22,28 @@ import rx.Observable;
  */
 public interface UserService {
 
-    @GET("/users/{username}") Observable<User> getUser(@Path("username") String loginName);
+    @GET("users/{username}") Observable<User> getUser(@Path("username") String loginName);
 
-    @GET("/user") Call<User> getCurUserCall();
+    @GET("user") Call<User> getCurUserCall();
 
-    @GET("/users/{username}/starred") Observable<Response<List<Star>>> getUserStars(
+    @GET("users/{username}/starred") Observable<Response<List<Star>>> getUserStars(
             @Path("username") String loginName, @Query("page") long page);
 
-    @GET("/users/{username}/repos") Observable<Response<List<Repositories>>> getUserRepos(
+    @GET("users/{username}/repos") Observable<Response<List<Repositories>>> getUserRepos(
             @Path("username") String loginName, @Query("page") long page);
 
-    @GET("/users/{username}/followers") Observable<Response<List<Followers>>> getUserFollowers(
+    @GET("users/{username}/followers") Observable<Response<List<Followers>>> getUserFollowers(
             @Path("username") String loginName, @Query("page") long page);
 
-    @GET("/users/{username}/following") Observable<Response<List<Following>>> getUserFollowing(
+    @GET("users/{username}/following") Observable<Response<List<Following>>> getUserFollowing(
             @Path("username") String loginName, @Query("page") long page);
 
-    @GET("/user/following/{username}") Call<ResponseBody> checkIsFollow(
+    @GET("user/following/{username}") Call<ResponseBody> checkIsFollow(
             @Path("username") String loginName);
 
-    @PUT("/user/following/{username}") Call<ResponseBody> follow(
-            @Path("username") String loginName);
+    @PUT("user/following/{username}") Call<ResponseBody> follow(@Path("username") String loginName);
 
-    @DELETE("/user/following/{username}") Call<ResponseBody> unFollow(
+    @DELETE("user/following/{username}") Call<ResponseBody> unFollow(
             @Path("username") String loginName);
 
 }

@@ -35,6 +35,7 @@ import me.liaoheng.github.starth.R;
 import me.liaoheng.github.starth.data.net.NetworkClient;
 import me.liaoheng.github.starth.model.User;
 import me.liaoheng.github.starth.ui.base.BaseActivity;
+import me.liaoheng.github.starth.util.Constants;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 import rx.Observable;
@@ -48,7 +49,6 @@ import rx.schedulers.Schedulers;
  * @version 2016-06-25 20:13
  */
 public class UserInfoActivity extends BaseActivity {
-    public final static String USER = "user";
     User mUser;
 
     @BindView(R.id.user_info_collapsing_toolbar) CollapsingToolbarLayout mCollapsingToolbarLayout;
@@ -69,7 +69,7 @@ public class UserInfoActivity extends BaseActivity {
 
     public static void start(Context context, User user) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable(USER, user);
+        bundle.putSerializable(Constants.USER, user);
         UIUtils.startActivity(context, UserInfoActivity.class, bundle);
     }
 
@@ -78,7 +78,7 @@ public class UserInfoActivity extends BaseActivity {
         setContentView(R.layout.activity_user2);
         ButterKnife.bind(this);
         initView();
-        mUser = (User) getIntent().getSerializableExtra(USER);
+        mUser = (User) getIntent().getSerializableExtra(Constants.USER);
         if (mUser == null) {
             L.getToast().e(TAG, getApplicationContext(), "user is null");
             return;

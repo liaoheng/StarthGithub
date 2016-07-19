@@ -19,6 +19,7 @@ import me.liaoheng.github.starth.model.Following;
 import me.liaoheng.github.starth.model.User;
 import me.liaoheng.github.starth.model.UserLogin;
 import me.liaoheng.github.starth.ui.base.LazyFragment;
+import me.liaoheng.github.starth.util.Constants;
 import retrofit2.Response;
 import rx.Observable;
 import rx.schedulers.Schedulers;
@@ -38,7 +39,7 @@ public class FollowingFragment extends LazyFragment {
     public static Fragment newInstance(User user) {
         Bundle args = new Bundle();
         FollowingFragment fragment = new FollowingFragment();
-        args.putSerializable(UserInfoActivity.USER, user);
+        args.putSerializable(Constants.USER, user);
         fragment.setArguments(args);
         return fragment;
     }
@@ -46,7 +47,7 @@ public class FollowingFragment extends LazyFragment {
     @Override protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_followers);
-        user = (User) getArguments().getSerializable(UserInfoActivity.USER);
+        user = (User) getArguments().getSerializable(Constants.USER);
         if (user == null) {
             L.getToast().e(TAG, getApplicationContext(), "user is null");
             return;

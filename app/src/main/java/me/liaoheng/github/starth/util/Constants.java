@@ -26,4 +26,8 @@ public interface Constants {
     String PROJECT_NAME          = "StarthGithub";
     int    IMAGE_DISK_CACHE_SIZE = 1024 * 1024 * 1024; // 1024MB
     int    HTTP_DISK_CACHE_SIZE  = 50 * 1024 * 1024;  // 50MB
+
+    String USER = "user";
+    String REPOSITORIES = "repositories";
+    String URL = "url";
 }

@@ -18,6 +18,8 @@ import me.liaoheng.github.starth.data.net.NetworkClient;
 import me.liaoheng.github.starth.model.Repositories;
 import me.liaoheng.github.starth.model.User;
 import me.liaoheng.github.starth.ui.base.LazyFragment;
+import me.liaoheng.github.starth.ui.repositories.RepositoriesDetailActivity;
+import me.liaoheng.github.starth.util.Constants;
 import retrofit2.Response;
 import rx.Observable;
 import rx.schedulers.Schedulers;
@@ -37,7 +39,7 @@ public class RepositoriesFragment extends LazyFragment {
     public static Fragment newInstance(User user) {
         Bundle args = new Bundle();
         RepositoriesFragment fragment = new RepositoriesFragment();
-        args.putSerializable(UserInfoActivity.USER, user);
+        args.putSerializable(Constants.USER, user);
         fragment.setArguments(args);
         return fragment;
     }
@@ -45,7 +47,7 @@ public class RepositoriesFragment extends LazyFragment {
     @Override protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_repositories);
-        user = (User) getArguments().getSerializable(UserInfoActivity.USER);
+        user = (User) getArguments().getSerializable(Constants.USER);
         if (user == null) {
             L.getToast().e(TAG, getApplicationContext(), "user is null");
             return;
@@ -71,7 +73,7 @@ public class RepositoriesFragment extends LazyFragment {
         mRepositoriesAdapter
                 .setOnItemClickListener(new IBaseAdapter.OnItemClickListener<Repositories>() {
                     @Override public void onItemClick(Repositories item, View view, int position) {
-                        WebViewActivity.start(getActivity(), item.getHtml_url());
+                        RepositoriesDetailActivity.start(getActivity(), item);
                     }
                 });
         mRecyclerViewHelper.setAdapter(mRepositoriesAdapter);

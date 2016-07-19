@@ -18,6 +18,7 @@ import me.liaoheng.github.starth.data.net.NetworkClient;
 import me.liaoheng.github.starth.model.Star;
 import me.liaoheng.github.starth.model.User;
 import me.liaoheng.github.starth.ui.base.LazyFragment;
+import me.liaoheng.github.starth.util.Constants;
 import retrofit2.Response;
 import rx.Observable;
 import rx.schedulers.Schedulers;
@@ -37,7 +38,7 @@ public class StarsFragment extends LazyFragment {
     public static Fragment newInstance(User user) {
         Bundle args = new Bundle();
         StarsFragment fragment = new StarsFragment();
-        args.putSerializable(UserInfoActivity.USER, user);
+        args.putSerializable(Constants.USER, user);
         fragment.setArguments(args);
         return fragment;
     }
@@ -45,7 +46,7 @@ public class StarsFragment extends LazyFragment {
     @Override protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_stars);
-        user = (User) getArguments().getSerializable(UserInfoActivity.USER);
+        user = (User) getArguments().getSerializable(Constants.USER);
         if (user == null) {
             L.getToast().e(TAG, getApplicationContext(), "user is null");
             return;

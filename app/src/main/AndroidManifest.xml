@@ -41,6 +41,16 @@
         android:theme="@style/AppThemeToolBar.SwipeBack"/>
 
     <activity
+        android:theme="@style/AppThemeToolBar.SwipeBack"
+        android:name=".ui.repositories.RepositoriesDetailActivity"
+        android:configChanges="orientation|keyboardHidden|screenSize"/>
+
+    <activity
+        android:theme="@style/AppThemeToolBar.SwipeBack"
+        android:name=".ui.repositories.FileRepositoriesActivity"
+        android:configChanges="orientation|keyboardHidden|screenSize"/>
+
+    <activity
         android:name=".ui.LoginActivity"
         android:configChanges="orientation|keyboardHidden|screenSize"
         android:label="@string/title_activity_login"/>

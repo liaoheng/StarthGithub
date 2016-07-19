@@ -31,13 +31,21 @@ public class NetworkClient {
         return client;
     }
 
-    private UserService mUserService;
+    private UserService         mUserService;
+    private RepositoriesService mRepositoriesService;
 
     public UserService getUserService() {
         if (mUserService == null) {
             mUserService = RetrofitUtils.get().getRetrofit().create(UserService.class);
         }
         return mUserService;
+    }
+
+    public RepositoriesService getReposService() {
+        if (mRepositoriesService == null) {
+            mRepositoriesService = RetrofitUtils.get().getRetrofit().create(RepositoriesService.class);
+        }
+        return mRepositoriesService;
     }
 
     public boolean checkGithubResponseBodyStatus(Response<ResponseBody> execute) {

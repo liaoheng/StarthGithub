@@ -84,7 +84,7 @@ public class MainActivity extends BaseActivity {
             ButterKnife.bind(this, itemView);
         }
 
-        @OnClick(R.id.user_avatar) void openUesrInfo() {
+        @OnClick(R.id.user_avatar) void openUserInfo() {
             mDrawerLayout.closeDrawers();
             UserInfoActivity.start(getActivity(), UserLogin.get().getUser());
         }
