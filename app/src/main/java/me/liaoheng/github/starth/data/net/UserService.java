@@ -26,7 +26,7 @@ public interface UserService {
 
     @GET("user") Call<User> getCurUserCall();
 
-    @GET("users/{username}/starred") Observable<Response<List<Star>>> getUserStars(
+    @GET("users/{username}/starred") Observable<Response<List<Repositories>>> getUserStars(
             @Path("username") String loginName, @Query("page") long page);
 
     @GET("users/{username}/repos") Observable<Response<List<Repositories>>> getUserRepos(

@@ -52,7 +52,6 @@ public class FileRepositoriesFragment extends LazyFragment {
 
         mRecyclerViewHelper = new RecyclerViewHelper.Builder(getActivity()).setLayoutManager()
                 .build();
-        mRecyclerViewHelper.getRecyclerView().setHasFixedSize(true);
         mFileRepositoriesAdapter = new FileRepositoriesAdapter(getActivity(), null);
         mRecyclerViewHelper.setAdapter(mFileRepositoriesAdapter);
         mFileRepositoriesAdapter.setOnItemClickListener(
@@ -60,7 +59,7 @@ public class FileRepositoriesFragment extends LazyFragment {
                     @Override public void onItemClick(RepositoriesFileContent item, View view,
                                                       int position) {
                         if (item.getType().equals("file")) {
-                            FileRepositoriesActivity.start(getActivity(), item);
+                            FileDetailRepositoriesActivity.start(getActivity(), item);
                         } else if (item.getType().equals("dir")) {
                             loadPath(item.getPath());
                         }

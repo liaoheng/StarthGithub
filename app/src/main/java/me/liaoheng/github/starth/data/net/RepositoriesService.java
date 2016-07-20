@@ -19,14 +19,17 @@ public interface RepositoriesService {
     @GET("repos/{owner}/{repo}/contents") Observable<Repositories> getRepositoriesContents(
             @Path("owner") String owner, @Path("repo") String repo);
 
-    @Headers("Accept: application/vnd.github.VERSION.raw") @GET Observable<ResponseBody> getRepositoriesFileContent(
+    @Headers("Accept: application/vnd.github.VERSION.raw") @GET Observable<ResponseBody> getRepositoriesFileContentRaw(
+            @Url String url);
+
+    @Headers("Accept: application/vnd.github.VERSION.html") @GET Observable<ResponseBody> getRepositoriesFileContentHtml(
             @Url String url);
 
     @GET("repos/{owner}/{repo}/contents/{pathName}") Observable<List<RepositoriesFileContent>> getRepositoriesPathContent(
             @Path("owner") String owner, @Path("repo") String repo,
             @Path("pathName") String pathName);
 
-    @Headers("Accept: application/vnd.github.VERSION.raw") @GET("repos/{owner}/{repo}/readme") Observable<ResponseBody> getRepositoriesReadMe(
+    @Headers("Accept: application/vnd.github.VERSION.html") @GET("repos/{owner}/{repo}/readme") Observable<ResponseBody> getRepositoriesReadMe(
             @Path("owner") String owner, @Path("repo") String repo);
 
 }

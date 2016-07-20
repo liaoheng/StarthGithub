@@ -7,19 +7,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import com.flyco.systembar.SystemBarHelper;
 import com.github.liaoheng.common.plus.core.WebHelper;
 import com.github.liaoheng.common.plus.view.WebViewLayout;
 import com.github.liaoheng.common.util.UIUtils;
 import com.github.liaoheng.common.util.Utils;
-import com.r0adkll.slidr.Slidr;
-import com.r0adkll.slidr.model.SlidrConfig;
 import me.liaoheng.github.starth.R;
 import me.liaoheng.github.starth.ui.base.BaseActivity;
 import org.apache.commons.io.FilenameUtils;
@@ -42,10 +38,7 @@ public class WebViewActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
         initToolBar();
-
-        SystemBarHelper
-                .tintStatusBar(this, ContextCompat.getColor(this, R.color.colorPrimaryDark), 0);
-        Slidr.attach(this, new SlidrConfig.Builder().edge(true).build());
+        initSlidrStatusBar();
 
         getBaseActionBar().setHomeAsUpIndicator(R.mipmap.ic_close_white_24dp);
 

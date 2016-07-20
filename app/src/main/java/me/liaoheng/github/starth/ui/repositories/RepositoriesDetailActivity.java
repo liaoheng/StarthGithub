@@ -3,15 +3,11 @@ package me.liaoheng.github.starth.ui.repositories;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import butterknife.ButterKnife;
-import com.flyco.systembar.SystemBarHelper;
 import com.github.liaoheng.common.plus.core.TabPagerHelper;
 import com.github.liaoheng.common.plus.model.PagerTab;
 import com.github.liaoheng.common.util.L;
 import com.github.liaoheng.common.util.UIUtils;
-import com.r0adkll.slidr.Slidr;
-import com.r0adkll.slidr.model.SlidrConfig;
 import me.liaoheng.github.starth.R;
 import me.liaoheng.github.starth.model.Repositories;
 import me.liaoheng.github.starth.ui.base.BaseActivity;
@@ -36,9 +32,7 @@ public class RepositoriesDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_repositories_detail);
         ButterKnife.bind(this);
         initToolBar();
-        SystemBarHelper
-                .tintStatusBar(this, ContextCompat.getColor(this, R.color.colorPrimaryDark), 0);
-        Slidr.attach(this, new SlidrConfig.Builder().edge(true).build());
+        initSlidrStatusBar();
 
         Repositories repositories = (Repositories) getIntent()
                 .getSerializableExtra(Constants.REPOSITORIES);
@@ -50,10 +44,8 @@ public class RepositoriesDetailActivity extends BaseActivity {
         setTitle(repositories.getFullName());
 
         PagerTab pagerTab = new PagerTab();
-        pagerTab.setTabs("ReadMe",
-                ReadMeRepositoriesFragment.newInstance(repositories));
-        pagerTab.setTabs("File",
-                FileRepositoriesFragment.newInstance(repositories));
+        pagerTab.setTabs("ReadMe", ReadMeRepositoriesFragment.newInstance(repositories));
+        pagerTab.setTabs("File", FileRepositoriesFragment.newInstance(repositories));
         pagerTab.setTabs(getString(R.string.followers_me),
                 ReadMeRepositoriesFragment.newInstance(repositories));
         pagerTab.setTabs(getString(R.string.following_me),

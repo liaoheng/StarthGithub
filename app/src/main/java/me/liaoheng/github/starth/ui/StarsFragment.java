@@ -15,9 +15,10 @@ import me.liaoheng.github.starth.R;
 import me.liaoheng.github.starth.adapter.StarsAdapter;
 import me.liaoheng.github.starth.data.Page;
 import me.liaoheng.github.starth.data.net.NetworkClient;
-import me.liaoheng.github.starth.model.Star;
+import me.liaoheng.github.starth.model.Repositories;
 import me.liaoheng.github.starth.model.User;
 import me.liaoheng.github.starth.ui.base.LazyFragment;
+import me.liaoheng.github.starth.ui.repositories.RepositoriesDetailActivity;
 import me.liaoheng.github.starth.util.Constants;
 import retrofit2.Response;
 import rx.Observable;
@@ -69,9 +70,9 @@ public class StarsFragment extends LazyFragment {
                     }
                 }).build();
         mStarsAdapter = new StarsAdapter(getActivity(), null);
-        mStarsAdapter.setOnItemClickListener(new IBaseAdapter.OnItemClickListener<Star>() {
-            @Override public void onItemClick(Star item, View view, int position) {
-                WebViewActivity.start(getActivity(), item.getHtml_url());
+        mStarsAdapter.setOnItemClickListener(new IBaseAdapter.OnItemClickListener<Repositories>() {
+            @Override public void onItemClick(Repositories item, View view, int position) {
+                RepositoriesDetailActivity.start(getActivity(), item);
             }
         });
         mRecyclerViewHelper.setAdapter(mStarsAdapter);
@@ -80,10 +81,10 @@ public class StarsFragment extends LazyFragment {
     }
 
     private void load(final Page page, final Page.PageState state) {
-        Observable<Response<List<Star>>> userStars = NetworkClient.get().getUserService()
+        Observable<Response<List<Repositories>>> userStars = NetworkClient.get().getUserService()
                 .getUserStars(user.getLogin(), page.getCurPage()).subscribeOn(Schedulers.io());
-        OkHttp3Utils.get()
-                .addSubscribe(userStars, new Callback.EmptyCallback<Response<List<Star>>>() {
+        OkHttp3Utils.get().addSubscribe(userStars,
+                new Callback.EmptyCallback<Response<List<Repositories>>>() {
 
                     @Override public void onPreExecute() {
                         if (Page.PageState.isRefreshUI(state)) {
@@ -101,8 +102,8 @@ public class StarsFragment extends LazyFragment {
                         }
                     }
 
-                    @Override public void onSuccess(Response<List<Star>> listResponse) {
-                        List<Star> stars = listResponse.body();
+                    @Override public void onSuccess(Response<List<Repositories>> listResponse) {
+                        List<Repositories> stars = listResponse.body();
                         if (ValidateUtils.isItemEmpty(stars)) {
                             return;
                         }

@@ -1,14 +1,16 @@
 <android.support.v4.widget.SwipeRefreshLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@id/lcp_list_swipe_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
   <android.support.v4.widget.NestedScrollView
       android:layout_width="match_parent"
       android:layout_height="match_parent">
 
-    <eu.fiskur.markdownview.MarkdownView
+    <me.liaoheng.github.starth.view.MarkdownAndCodeHighlightView
         android:id="@+id/repositories_detail_read_me_markdown_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

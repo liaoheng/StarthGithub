@@ -110,8 +110,6 @@ dependencies {
   compile 'com.shootr:KMNumbers:1.0.0'
   //https://github.com/yshrsmz/LicenseAdapter
   compile 'net.yslibrary.licenseadapter:licenseadapter:1.2.4'
-  //https://github.com/fiskurgit/MarkdownView
-  compile 'com.github.fiskurgit:MarkdownView:1.1.0'
 
 
   compile 'com.github.liaoheng.common:plus:0.0.1-SNAPSHOT'

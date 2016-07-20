@@ -7,48 +7,49 @@ import com.github.liaoheng.common.plus.core.ListDuplicateHelper;
 import java.util.List;
 import me.liaoheng.github.starth.R;
 import me.liaoheng.github.starth.adapter.viewholder.StarsViewHolder;
+import me.liaoheng.github.starth.model.Repositories;
 import me.liaoheng.github.starth.model.Star;
 
 /**
  * @author liaoheng
  * @version 2016-06-25 19:18
  */
-public class StarsAdapter extends BaseAdapter<Star, StarsViewHolder> {
+public class StarsAdapter extends BaseAdapter<Repositories, StarsViewHolder> {
 
-    ListDuplicateHelper<Star> mListDuplicateHelper;
+    ListDuplicateHelper<Repositories> mListDuplicateHelper;
 
-    public StarsAdapter(Context context, List<Star> list) {
+    public StarsAdapter(Context context, List<Repositories> list) {
         super(context, list);
         mListDuplicateHelper = new ListDuplicateHelper<>(getList());
     }
 
-    @Override public void add(Star o) {
+    @Override public void add(Repositories o) {
         mListDuplicateHelper.addDuplicate(o, o.getId());
     }
 
-    @Override public void add(int index, Star o) {
+    @Override public void add(int index, Repositories o) {
         mListDuplicateHelper.addDuplicate(index, o, o.getId());
     }
 
-    @Override public void addAll(List<Star> list) {
-        mListDuplicateHelper.addAllDuplicate(list, new ListDuplicateHelper.Key<Star>() {
-            @Override public int getKey(Star item) {
+    @Override public void addAll(List<Repositories> list) {
+        mListDuplicateHelper.addAllDuplicate(list, new ListDuplicateHelper.Key<Repositories>() {
+            @Override public int getKey(Repositories item) {
                 return item.getId();
             }
         });
     }
 
-    @Override public void addAll(int index, List<Star> list) {
-        mListDuplicateHelper.addAllDuplicate(index, list, new ListDuplicateHelper.Key<Star>() {
-            @Override public int getKey(Star item) {
+    @Override public void addAll(int index, List<Repositories> list) {
+        mListDuplicateHelper.addAllDuplicate(index, list, new ListDuplicateHelper.Key<Repositories>() {
+            @Override public int getKey(Repositories item) {
                 return item.getId();
             }
         });
     }
 
-    @Override public void update(List<Star> list) {
-        mListDuplicateHelper.updateDuplicate(list, new ListDuplicateHelper.Key<Star>() {
-            @Override public int getKey(Star item) {
+    @Override public void update(List<Repositories> list) {
+        mListDuplicateHelper.updateDuplicate(list, new ListDuplicateHelper.Key<Repositories>() {
+            @Override public int getKey(Repositories item) {
                 return item.getId();
             }
         });
@@ -59,7 +60,7 @@ public class StarsAdapter extends BaseAdapter<Star, StarsViewHolder> {
         return new StarsViewHolder(view);
     }
 
-    @Override public void onBindViewHolderItem(StarsViewHolder holder, Star star, int position) {
+    @Override public void onBindViewHolderItem(StarsViewHolder holder, Repositories star, int position) {
         holder.onHandle(star);
     }
 }

@@ -8,6 +8,7 @@ import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
 import com.github.liaoheng.common.plus.adapter.holder.BaseRecyclerViewHolder;
 import me.liaoheng.github.starth.R;
+import me.liaoheng.github.starth.model.Repositories;
 import me.liaoheng.github.starth.model.Star;
 import me.liaoheng.github.starth.model.User;
 import me.liaoheng.github.starth.ui.UserInfoActivity;
@@ -16,7 +17,7 @@ import me.liaoheng.github.starth.ui.UserInfoActivity;
  * @author liaoheng
  * @version 2016-06-25 19:18
  */
-public class StarsViewHolder extends BaseRecyclerViewHolder<Star> {
+public class StarsViewHolder extends BaseRecyclerViewHolder<Repositories> {
     @BindView(R.id.stars_list_item_image)    ImageView image;
     @BindView(R.id.stars_list_item_title)    TextView  title;
     @BindView(R.id.stars_list_item_desc)     TextView  desc;
@@ -29,7 +30,7 @@ public class StarsViewHolder extends BaseRecyclerViewHolder<Star> {
         ButterKnife.bind(this, itemView);
     }
 
-    @Override public void onHandle(final Star item) {
+    @Override public void onHandle(final Repositories item) {
         Glide.with(getContext()).load(item.getOwner().getAvatar_url()).into(image);
         image.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {

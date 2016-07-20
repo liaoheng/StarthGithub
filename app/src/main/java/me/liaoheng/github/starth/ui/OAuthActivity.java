@@ -5,14 +5,12 @@ import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.flyco.systembar.SystemBarHelper;
 import com.github.liaoheng.common.plus.core.ProgressHelper;
 import com.github.liaoheng.common.plus.util.OkHttp3Utils;
 import com.github.liaoheng.common.util.Callback;
@@ -24,7 +22,6 @@ import java.io.IOException;
 import me.liaoheng.github.starth.R;
 import me.liaoheng.github.starth.data.net.NetworkClient;
 import me.liaoheng.github.starth.data.net.OAuthService;
-import me.liaoheng.github.starth.data.net.UserService;
 import me.liaoheng.github.starth.model.AccessToken;
 import me.liaoheng.github.starth.model.RequestToken;
 import me.liaoheng.github.starth.model.User;
@@ -56,9 +53,7 @@ public class OAuthActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_oauth);
         ButterKnife.bind(this);
-
-        SystemBarHelper
-                .tintStatusBar(this, ContextCompat.getColor(this, R.color.colorPrimaryDark), 0);
+        initStatusBar();
 
         mProgressHelper = ProgressHelper.with(this);
 
@@ -102,11 +97,10 @@ public class OAuthActivity extends BaseActivity {
                                     throw new SystemRuntimeException(accessToken.getError());
                                 }
                                 L.d(TAG, "access_token  : %s", accessToken);
-                                UserLogin.get()
-                                        .setAccessToken(accessToken.getAccess_token());
-                                OkHttp3Utils.get().updateHeader(
-                                        UserLogin.get().getAccessTokenHeaderKey(),
-                                        UserLogin.get().getAccessTokenHeaderContent());
+                                UserLogin.get().setAccessToken(accessToken.getAccess_token());
+                                OkHttp3Utils.get()
+                                        .updateHeader(UserLogin.get().getAccessTokenHeaderKey(),
+                                                UserLogin.get().getAccessTokenHeaderContent());
                                 return accessToken;
                             }
                         }).map(new Func1<AccessToken, User>() {

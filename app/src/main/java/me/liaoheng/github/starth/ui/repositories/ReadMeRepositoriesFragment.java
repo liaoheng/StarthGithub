@@ -1,22 +1,26 @@
 package me.liaoheng.github.starth.ui.repositories;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.github.liaoheng.common.plus.util.OkHttp3Utils;
 import com.github.liaoheng.common.util.Callback;
 import com.github.liaoheng.common.util.L;
 import com.github.liaoheng.common.util.SystemException;
-import eu.fiskur.markdownview.MarkdownView;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import me.liaoheng.github.starth.R;
 import me.liaoheng.github.starth.data.net.NetworkClient;
 import me.liaoheng.github.starth.model.Repositories;
 import me.liaoheng.github.starth.ui.base.LazyFragment;
 import me.liaoheng.github.starth.util.Constants;
+import me.liaoheng.github.starth.view.MarkdownAndCodeHighlightView;
 import okhttp3.ResponseBody;
+import org.apache.commons.io.FilenameUtils;
 import rx.Observable;
 import rx.schedulers.Schedulers;
 
@@ -34,7 +38,7 @@ public class ReadMeRepositoriesFragment extends LazyFragment {
         return fragment;
     }
 
-    @BindView(R.id.repositories_detail_read_me_markdown_view) MarkdownView mMarkDownView;
+    @BindView(R.id.repositories_detail_read_me_markdown_view) MarkdownAndCodeHighlightView mMarkDownView;
 
     @BindView(R.id.lcp_list_swipe_container) SwipeRefreshLayout mSwipeRefreshLayout;
 
@@ -45,9 +49,11 @@ public class ReadMeRepositoriesFragment extends LazyFragment {
 
         final Repositories repositories = (Repositories) getArguments()
                 .getSerializable(Constants.REPOSITORIES);
-
+        if (repositories == null){
+            return;
+        }
+        mMarkDownView.setBaseUrl(repositories.getUrl()+"/contents/");
         load(repositories);
-
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override public void onRefresh() {
                 load(repositories);
@@ -56,7 +62,7 @@ public class ReadMeRepositoriesFragment extends LazyFragment {
 
     }
 
-    private void load(Repositories repositories) {
+    private void load(final Repositories repositories) {
         Observable<ResponseBody> repositoriesObservable = NetworkClient.get().getReposService()
                 .getRepositoriesReadMe(repositories.getOwner().getLogin(), repositories.getName())
                 .subscribeOn(Schedulers.io());
@@ -77,7 +83,11 @@ public class ReadMeRepositoriesFragment extends LazyFragment {
 
                     @Override public void onSuccess(ResponseBody o) {
                         try {
-                            mMarkDownView.showMarkdown(o.string());
+                            String markdown = o.string();
+                            if (TextUtils.isEmpty(markdown)) {
+                                markdown = "# " + repositories.getName();
+                            }
+                            mMarkDownView.loadMarkdownData(markdown);
                         } catch (IOException e) {
                             onError(new SystemException(e));
                         }
@@ -87,5 +97,20 @@ public class ReadMeRepositoriesFragment extends LazyFragment {
                         L.getToast().e(TAG, getApplicationContext(), e);
                     }
                 });
+    }
+
+    @Override protected void onResumeLazy() {
+        mMarkDownView.onResume();
+        super.onResumeLazy();
+    }
+
+    @Override protected void onPauseLazy() {
+        mMarkDownView.onPause();
+        super.onPauseLazy();
+    }
+
+    @Override protected void onDestroyViewLazy() {
+        mMarkDownView.destroy();
+        super.onDestroyViewLazy();
     }
 }

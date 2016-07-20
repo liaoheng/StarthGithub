@@ -47,7 +47,7 @@
 
     <activity
         android:theme="@style/AppThemeToolBar.SwipeBack"
-        android:name=".ui.repositories.FileRepositoriesActivity"
+        android:name=".ui.repositories.FileDetailRepositoriesActivity"
         android:configChanges="orientation|keyboardHidden|screenSize"/>
 
     <activity

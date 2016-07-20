@@ -1,27 +1,39 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:background="@android:color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-  <android.support.v7.widget.Toolbar
-      android:id="@id/lcp_toolbar"
+  <android.support.design.widget.AppBarLayout
+      app:elevation="0dp"
+      android:id="@+id/lcp_app_bar_layout"
       android:layout_width="match_parent"
-      android:layout_height="?attr/actionBarSize"
-      android:background="?attr/colorPrimary"
-      app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-      android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+      android:layout_height="wrap_content"
+      android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@id/lcp_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="?colorPrimaryDark"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+  </android.support.design.widget.AppBarLayout>
 
   <android.support.v4.widget.SwipeRefreshLayout
+      app:layout_behavior="@string/appbar_scrolling_view_behavior"
       android:id="@+id/lcp_list_swipe_container"
       android:layout_width="match_parent"
       android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/repositories_file_detail_text"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
 
+      <me.liaoheng.github.starth.view.MarkdownAndCodeHighlightView
+          android:id="@+id/repositories_file_detail_content_view"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"/>
+    </android.support.v4.widget.NestedScrollView>
   </android.support.v4.widget.SwipeRefreshLayout>
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
