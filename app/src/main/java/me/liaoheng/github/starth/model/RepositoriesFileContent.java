@@ -9,6 +9,9 @@ import java.io.Serializable;
  */
 @JsonIgnoreProperties(ignoreUnknown = true) public class RepositoriesFileContent extends Base
         implements Serializable {
+    public enum Type {
+        file, dir
+    }
 
     private String name;
     private String path;
@@ -18,7 +21,7 @@ import java.io.Serializable;
     private String html_url;
     private String git_url;
     private String download_url;
-    private String type;
+    private Type   type;
     private String content;
     private String encoding;
 
@@ -86,11 +89,11 @@ import java.io.Serializable;
         this.download_url = download_url;
     }
 
-    public String getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Type type) {
         this.type = type;
     }
 

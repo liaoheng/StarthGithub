@@ -25,6 +25,17 @@ public class RepositoriesDetailActivity extends BaseActivity {
         UIUtils.startActivity(context, RepositoriesDetailActivity.class, bundle);
     }
 
+    onBackPressedListener mBackPressedListener;
+
+    public void setBackPressedListener(onBackPressedListener backPressedListener) {
+        this.mBackPressedListener = backPressedListener;
+    }
+
+    // TODO:应该放入Common Lib
+    public interface onBackPressedListener {
+        boolean backPressed();
+    }
+
     TabPagerHelper mTabPagerHelper;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +57,8 @@ public class RepositoriesDetailActivity extends BaseActivity {
         PagerTab pagerTab = new PagerTab();
         pagerTab.setTabs("ReadMe", ReadMeRepositoriesFragment.newInstance(repositories));
         pagerTab.setTabs("File", FileRepositoriesFragment.newInstance(repositories));
-        pagerTab.setTabs(getString(R.string.followers_me),
-                ReadMeRepositoriesFragment.newInstance(repositories));
+        pagerTab.setTabs("Commits",
+                CommitsRepositoriesFragment.newInstance(repositories));
         pagerTab.setTabs(getString(R.string.following_me),
                 ReadMeRepositoriesFragment.newInstance(repositories));
 
@@ -59,5 +70,11 @@ public class RepositoriesDetailActivity extends BaseActivity {
                         return (Fragment) tab.getObject();
                     }
                 });
+    }
+
+    @Override public void onBackPressed() {
+        if (mBackPressedListener != null && mBackPressedListener.backPressed()) {
+            super.onBackPressed();
+        }
     }
 }

@@ -1,9 +1,11 @@
 package me.liaoheng.github.starth.data.net;
 
 import java.util.List;
+import me.liaoheng.github.starth.model.Commits;
 import me.liaoheng.github.starth.model.Repositories;
 import me.liaoheng.github.starth.model.RepositoriesFileContent;
 import okhttp3.ResponseBody;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Path;
@@ -15,6 +17,9 @@ import rx.Observable;
  * @version 2016-07-19 11:51
  */
 public interface RepositoriesService {
+
+    @GET("repos/{owner}/{repo}/commits") Observable<List<Commits>> getRepositoriesCommits(
+            @Path("owner") String owner, @Path("repo") String repo);
 
     @GET("repos/{owner}/{repo}/contents") Observable<Repositories> getRepositoriesContents(
             @Path("owner") String owner, @Path("repo") String repo);

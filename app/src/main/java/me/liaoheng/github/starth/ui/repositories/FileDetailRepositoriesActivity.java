@@ -3,6 +3,8 @@ package me.liaoheng.github.starth.ui.repositories;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.Menu;
+import android.view.MenuItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.github.liaoheng.common.plus.util.OkHttp3Utils;
@@ -12,6 +14,7 @@ import com.github.liaoheng.common.util.SystemException;
 import com.github.liaoheng.common.util.UIUtils;
 import java.io.IOException;
 import me.liaoheng.github.starth.R;
+import me.liaoheng.github.starth.core.MenuItemHelper;
 import me.liaoheng.github.starth.data.net.NetworkClient;
 import me.liaoheng.github.starth.model.RepositoriesFileContent;
 import me.liaoheng.github.starth.ui.base.BaseActivity;
@@ -37,7 +40,9 @@ public class FileDetailRepositoriesActivity extends BaseActivity {
     @BindView(R.id.lcp_list_swipe_container)              SwipeRefreshLayout           mSwipeRefreshLayout;
     @BindView(R.id.repositories_file_detail_content_view) MarkdownAndCodeHighlightView mContentView;
 
-    public boolean markdown;
+    public  boolean                 markdown;
+    private MenuItemHelper          mMenuItemHelper;
+    private RepositoriesFileContent mFileContent;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,25 +51,26 @@ public class FileDetailRepositoriesActivity extends BaseActivity {
         ButterKnife.bind(this);
         initSlidrStatusBar();
 
-        final RepositoriesFileContent repositoriesFileContent = (RepositoriesFileContent) getIntent()
+        mFileContent = (RepositoriesFileContent) getIntent()
                 .getSerializableExtra(Constants.REPOSITORIES);
-        if (repositoriesFileContent == null) {
+        if (mFileContent == null) {
             L.getToast().e(TAG, getApplicationContext(), "RepositoriesFileContent is null");
             finish();
             return;
         }
-        setTitle(repositoriesFileContent.getName());
+        setTitle(mFileContent.getName());
 
-        String path = FilenameUtils.getPath(repositoriesFileContent.getUrl());
+        String path = FilenameUtils.getPath(mFileContent.getUrl());
         mContentView.setBaseUrl(path);
+        mMenuItemHelper = MenuItemHelper.with();
 
-        String name = FilenameUtils.getExtension(repositoriesFileContent.getName());
+        String name = FilenameUtils.getExtension(mFileContent.getName());
         markdown = name.equalsIgnoreCase("md") || name.equalsIgnoreCase("markdown");
-        load(repositoriesFileContent);
+        load(mFileContent);
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override public void onRefresh() {
-                load(repositoriesFileContent);
+                load(mFileContent);
             }
         });
 
@@ -111,6 +117,17 @@ public class FileDetailRepositoriesActivity extends BaseActivity {
                     }
                 });
     }
+
+    @Override public boolean onOptionsItemSelected(MenuItem item) {
+        return mMenuItemHelper.onWebOptionsItemSelected(this, item, mFileContent.getHtml_url(),
+                mFileContent.getDownload_url()) || super.onOptionsItemSelected(item);
+    }
+
+    @Override public boolean onCreateOptionsMenu(Menu menu) {
+        mMenuItemHelper.onWebCreateOptionsMenu(getMenuInflater(), menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
 
     @Override protected void onResume() {
         mContentView.onResume();

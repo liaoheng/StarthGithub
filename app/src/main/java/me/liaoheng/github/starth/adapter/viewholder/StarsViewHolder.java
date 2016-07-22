@@ -9,7 +9,6 @@ import com.bumptech.glide.Glide;
 import com.github.liaoheng.common.plus.adapter.holder.BaseRecyclerViewHolder;
 import me.liaoheng.github.starth.R;
 import me.liaoheng.github.starth.model.Repositories;
-import me.liaoheng.github.starth.model.Star;
 import me.liaoheng.github.starth.model.User;
 import me.liaoheng.github.starth.ui.UserInfoActivity;
 

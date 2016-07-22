@@ -8,7 +8,6 @@ import java.util.List;
 import me.liaoheng.github.starth.R;
 import me.liaoheng.github.starth.adapter.viewholder.StarsViewHolder;
 import me.liaoheng.github.starth.model.Repositories;
-import me.liaoheng.github.starth.model.Star;
 
 /**
  * @author liaoheng

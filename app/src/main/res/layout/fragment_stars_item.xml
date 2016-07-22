@@ -13,6 +13,7 @@
       android:layout_height="match_parent">
 
     <ImageButton
+        android:scaleType="fitCenter"
         android:background="?selectableItemBackgroundBorderless"
         android:id="@+id/stars_list_item_image"
         android:src="@mipmap/ic_launcher"

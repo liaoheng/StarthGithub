@@ -18,12 +18,12 @@
   <string name="following_me">Following</string>
   <string name="followers_another">Followers</string>
   <string name="following_another">Following</string>
-  <string name="share">Share</string>
-  <string name="open_with_browser">Open With Browser</string>
-  <string name="copy_url">Copy URL</string>
-  <string name="about">About</string>
-  <string name="download">Download</string>
+  <string name="share">@string/lcp_share</string>
+  <string name="open_with_browser">@string/lcp_open_with_browser</string>
+  <string name="copy_url">@string/lcp_copy_url</string>
+  <string name="about">@string/lcp_about</string>
+  <string name="download">@string/lcp_download</string>
   <string name="failed_to_download">Failed to download</string>
-  <string name="success">success</string>
-  <string name="fail">fail</string>
+  <string name="success">@string/lcp_success</string>
+  <string name="fail">@string/lcp_fail</string>
 </resources>

@@ -4,7 +4,6 @@ import java.util.List;
 import me.liaoheng.github.starth.model.Followers;
 import me.liaoheng.github.starth.model.Following;
 import me.liaoheng.github.starth.model.Repositories;
-import me.liaoheng.github.starth.model.Star;
 import me.liaoheng.github.starth.model.User;
 import okhttp3.ResponseBody;
 import retrofit2.Call;

@@ -1,13 +1,8 @@
 package me.liaoheng.github.starth.ui;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebSettings;
@@ -15,10 +10,9 @@ import android.webkit.WebView;
 import com.github.liaoheng.common.plus.core.WebHelper;
 import com.github.liaoheng.common.plus.view.WebViewLayout;
 import com.github.liaoheng.common.util.UIUtils;
-import com.github.liaoheng.common.util.Utils;
 import me.liaoheng.github.starth.R;
+import me.liaoheng.github.starth.core.MenuItemHelper;
 import me.liaoheng.github.starth.ui.base.BaseActivity;
-import org.apache.commons.io.FilenameUtils;
 
 /**
  * @author liaoheng
@@ -32,7 +26,8 @@ public class WebViewActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
-    private WebHelper mWebHelper;
+    private WebHelper      mWebHelper;
+    private MenuItemHelper mMenuItemHelper;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +36,8 @@ public class WebViewActivity extends BaseActivity {
         initSlidrStatusBar();
 
         getBaseActionBar().setHomeAsUpIndicator(R.mipmap.ic_close_white_24dp);
+
+        mMenuItemHelper = MenuItemHelper.with();
 
         mWebHelper = WebHelper.with(UIUtils.findViewById(this, R.id.lcp_web_view));
         mWebHelper.getWebView().setWebChromeClient(new WebChromeClient(this));
@@ -89,45 +86,12 @@ public class WebViewActivity extends BaseActivity {
     }
 
     @Override public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId_ = item.getItemId();
-        String url = mWebHelper.getWebView().getWebView().getUrl();
-        if (TextUtils.isEmpty(url)) {
-            return super.onOptionsItemSelected(item);
-        }
-        if (itemId_ == R.id.menu_web_share) {
-            Uri uri = Uri.parse(url);
-            Intent share = new Intent(Intent.ACTION_SEND, uri);
-            share.setType("text/plain");
-            share.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            share.putExtra(Intent.EXTRA_TEXT, uri.toString());
-            startActivity(Intent.createChooser(share, "Share link!"));
-            return true;
-        } else if (itemId_ == R.id.menu_web_open_with_browser) {
-            Uri uri = Uri.parse(url);
-            Intent browser = new Intent(Intent.ACTION_VIEW, uri);
-            browser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(browser);
-            return true;
-        } else if (itemId_ == R.id.menu_web_copy_url) {
-            ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-            ClipData clip = ClipData.newPlainText("url", url);
-            clipboard.setPrimaryClip(clip);
-            return true;
-        } else if (itemId_ == R.id.menu_web_download) {
-            String extension = FilenameUtils.getExtension(url);
-            if (TextUtils.isEmpty(extension)) {
-                UIUtils.showToast(getApplicationContext(), getString(R.string.failed_to_download));
-            } else {
-                String fileName = FilenameUtils.getName(url);
-                Utils.systemDownloadPublicDir(this, fileName, url, Environment.DIRECTORY_DOWNLOADS,
-                        fileName);
-            }
-        }
-        return super.onOptionsItemSelected(item);
+        return mMenuItemHelper.onWebOptionsItemSelected(this, item,
+                mWebHelper.getWebView().getWebView().getUrl()) || super.onOptionsItemSelected(item);
     }
 
     @Override public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_web, menu);
+        mMenuItemHelper.onWebCreateOptionsMenu(getMenuInflater(), menu);
         return super.onCreateOptionsMenu(menu);
     }
 }
