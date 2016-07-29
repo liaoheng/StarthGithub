@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.example.KMNumbers;
 import com.github.liaoheng.common.plus.adapter.BaseRecyclerAdapter;
 import com.github.liaoheng.common.plus.adapter.IBaseAdapter;
 import com.github.liaoheng.common.plus.adapter.holder.BaseRecyclerViewHolder;
@@ -27,6 +26,8 @@ import me.liaoheng.github.starth.model.Repositories;
 import me.liaoheng.github.starth.model.RepositoriesFileContent;
 import me.liaoheng.github.starth.ui.base.LazyFragment;
 import me.liaoheng.github.starth.util.Constants;
+import org.laukvik.pretty.ByteUnit;
+import org.laukvik.pretty.PrettyFormat;
 import rx.Observable;
 import rx.Subscription;
 import rx.schedulers.Schedulers;
@@ -180,7 +181,9 @@ public class FileRepositoriesFragment extends LazyFragment
 
         @Override public void onHandle(RepositoriesFileContent item) {
             name.setText(item.getName());
-            size.setText(KMNumbers.formatNumbers((long) item.getSize()));
+            String format = PrettyFormat.with().setUnit(ByteUnit.Kb).setFractionDigits(2)
+                    .format(item.getSize());
+            size.setText(format);
         }
     }
 

@@ -5,10 +5,12 @@ import me.liaoheng.github.starth.model.Commits;
 import me.liaoheng.github.starth.model.Repositories;
 import me.liaoheng.github.starth.model.RepositoriesFileContent;
 import okhttp3.ResponseBody;
+import retrofit2.Response;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import retrofit2.http.Url;
 import rx.Observable;
 
@@ -18,11 +20,15 @@ import rx.Observable;
  */
 public interface RepositoriesService {
 
-    @GET("repos/{owner}/{repo}/commits") Observable<List<Commits>> getRepositoriesCommits(
+    @GET("repos/{owner}/{repo}/commits") Observable<Response<List<Commits>>> getRepositoriesCommits(
+            @Path("owner") String owner, @Path("repo") String repo, @Query("page") long page);
+
+    @GET("repos/{owner}/{repo}/issues") Observable<List<Commits>> getRepositoriesIssues(
             @Path("owner") String owner, @Path("repo") String repo);
 
     @GET("repos/{owner}/{repo}/contents") Observable<Repositories> getRepositoriesContents(
             @Path("owner") String owner, @Path("repo") String repo);
+
 
     @Headers("Accept: application/vnd.github.VERSION.raw") @GET Observable<ResponseBody> getRepositoriesFileContentRaw(
             @Url String url);

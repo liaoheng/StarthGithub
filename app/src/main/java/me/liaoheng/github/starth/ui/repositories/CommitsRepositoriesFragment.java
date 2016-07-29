@@ -10,7 +10,6 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
-import com.github.liaoheng.common.plus.adapter.BaseRecyclerAdapter;
 import com.github.liaoheng.common.plus.adapter.IBaseAdapter;
 import com.github.liaoheng.common.plus.adapter.holder.BaseRecyclerViewHolder;
 import com.github.liaoheng.common.plus.core.RecyclerViewHelper;
@@ -18,14 +17,19 @@ import com.github.liaoheng.common.plus.util.OkHttp3Utils;
 import com.github.liaoheng.common.util.Callback;
 import com.github.liaoheng.common.util.L;
 import com.github.liaoheng.common.util.SystemException;
+import com.github.liaoheng.common.util.ValidateUtils;
 import java.util.List;
 import me.liaoheng.github.starth.R;
+import me.liaoheng.github.starth.adapter.BaseAdapter;
+import me.liaoheng.github.starth.data.Page;
 import me.liaoheng.github.starth.data.net.NetworkClient;
 import me.liaoheng.github.starth.model.Commits;
 import me.liaoheng.github.starth.model.Repositories;
 import me.liaoheng.github.starth.ui.UserInfoActivity;
+import me.liaoheng.github.starth.ui.WebViewActivity;
 import me.liaoheng.github.starth.ui.base.LazyFragment;
 import me.liaoheng.github.starth.util.Constants;
+import retrofit2.Response;
 import rx.Observable;
 import rx.schedulers.Schedulers;
 
@@ -45,33 +49,44 @@ public class CommitsRepositoriesFragment extends LazyFragment {
 
     RecyclerViewHelper         mRecyclerViewHelper;
     CommitsRepositoriesAdapter mCommitsRepositoriesAdapter;
+    Page mPage = new Page();
+    Repositories mRepositories;
 
     @Override protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_repositories_detail_commits_list);
 
-        Repositories repositories = (Repositories) getArguments()
+        mRepositories = (Repositories) getArguments()
                 .getSerializable(Constants.REPOSITORIES);
-        if (repositories == null) {
+        if (mRepositories == null) {
             return;
         }
 
         mRecyclerViewHelper = new RecyclerViewHelper.Builder(getActivity(), getContentView())
-                .setLayoutManager().build();
+                .setLayoutManager()
+                .setLoadMoreAndRefreshListener(new RecyclerViewHelper.RefreshListener() {
+                    @Override public void onRefresh() {
+                        loadPath(mPage.refresh(), Page.PageState.REFRESH);
+                    }
+                }, new RecyclerViewHelper.LoadMoreListener() {
+                    @Override public void onLoadMore() {
+                        loadPath(mPage.more(), Page.PageState.MORE);
+                    }
+                }).addLoadMoreFooterView().build();
         mCommitsRepositoriesAdapter = new CommitsRepositoriesAdapter(getActivity(), null);
         mRecyclerViewHelper.setAdapter(mCommitsRepositoriesAdapter);
         mCommitsRepositoriesAdapter
                 .setOnItemClickListener(new IBaseAdapter.OnItemClickListener<Commits>() {
                     @Override public void onItemClick(Commits item, View view, int position) {
-
+                        WebViewActivity.start(getActivity(), item.getHtml_url());
                     }
                 });
 
-        loadPath(repositories);
+        loadPath(mPage, Page.PageState.ONE);
     }
 
     public class CommitsRepositoriesAdapter
-            extends BaseRecyclerAdapter<Commits, CommitsRepositoriesViewHolder> {
+            extends BaseAdapter<Commits, CommitsRepositoriesViewHolder> {
 
         public CommitsRepositoriesAdapter(Context context, List<Commits> list) {
             super(context, list);
@@ -103,7 +118,9 @@ public class CommitsRepositoriesFragment extends LazyFragment {
         }
 
         @Override public void onHandle(final Commits item) {
-            Glide.with(getContext()).load(item.getCommitter().getAvatar_url()).into(avatar);
+            if (item.getCommitter() != null) {
+                Glide.with(getContext()).load(item.getCommitter().getAvatar_url()).into(avatar);
+            }
             avatar.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     UserInfoActivity.start(getContext(), item.getCommitter());
@@ -115,25 +132,50 @@ public class CommitsRepositoriesFragment extends LazyFragment {
         }
     }
 
-    private void loadPath(Repositories repositories) {
-        Observable<List<Commits>> repositoriesObservable = NetworkClient.get().getReposService()
-                .getRepositoriesCommits(repositories.getOwner().getLogin(), repositories.getName())
+    private void loadPath(final Page page, final Page.PageState state) {
+        Observable<Response<List<Commits>>> repositoriesObservable = NetworkClient.get()
+                .getReposService().getRepositoriesCommits(mRepositories.getOwner().getLogin(),
+                        mRepositories.getName(), page.getCurPage())
                 .subscribeOn(Schedulers.io());
-        OkHttp3Utils.get()
-                .addSubscribe(repositoriesObservable, new Callback.EmptyCallback<List<Commits>>() {
+        OkHttp3Utils.get().addSubscribe(repositoriesObservable,
+                new Callback.EmptyCallback<Response<List<Commits>>>() {
                     @Override public void onPreExecute() {
-                        mRecyclerViewHelper.setRefreshCallback(true);
-                        mRecyclerViewHelper.getRecyclerView().setEnabled(false);
+                        if (Page.PageState.isRefreshUI(state)) {
+                            mRecyclerViewHelper.setRefreshCallback(true);
+                        } else {
+                            mRecyclerViewHelper.setLoading(true);
+                        }
                     }
 
                     @Override public void onPostExecute() {
-                        mRecyclerViewHelper.setRefreshCallback(false);
-                        mRecyclerViewHelper.getRecyclerView().setEnabled(true);
+                        if (Page.PageState.isRefreshUI(state)) {
+                            mRecyclerViewHelper.setRefreshCallback(false);
+                        } else {
+                            mRecyclerViewHelper.setLoading(false);
+                        }
                     }
 
-                    @Override public void onSuccess(List<Commits> o) {
-                        mCommitsRepositoriesAdapter.update(o);
-                        mCommitsRepositoriesAdapter.notifyDataSetChanged();
+                    @Override public void onSuccess(Response<List<Commits>> listResponse) {
+
+                        List<Commits> repositories = listResponse.body();
+                        if (ValidateUtils.isItemEmpty(repositories)) {
+                            return;
+                        }
+                        NetworkClient.get().setPage(listResponse.headers(), page);
+
+                        if (Page.PageState.isMoreData(state)) {
+                            mRecyclerViewHelper.setHasLoadedAllItems(page.isLast());
+                        }
+
+                        if (Page.PageState.isRefreshUI(state)) {
+                            mCommitsRepositoriesAdapter.addAll(0, repositories);
+                            mCommitsRepositoriesAdapter.notifyDataSetChanged();
+                        } else {
+                            mCommitsRepositoriesAdapter.setOldSize();
+                            mCommitsRepositoriesAdapter.addAll(repositories);
+                            mCommitsRepositoriesAdapter
+                                    .itemInserted(mCommitsRepositoriesAdapter.getOldSize());
+                        }
                     }
 
                     @Override public void onError(SystemException e) {

@@ -1,13 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 
-apt {
-  arguments {
-    resourcePackageName android.defaultConfig.applicationId
-    androidManifestFile variant.outputs[0]?.processResources?.manifestFile
-  }
-}
-
 android {
   compileSdkVersion rootProject.ext.compileSdkVersion
   buildToolsVersion rootProject.ext.buildToolsVersion
@@ -71,6 +64,7 @@ android {
 
 def JacksonVersion = '2.5.1'
 dependencies {
+  compile fileTree(include: ['*.jar'], dir: 'libs')
   testCompile 'junit:junit:4.12'
   //android system
   compile deps.supportv4
@@ -78,7 +72,6 @@ dependencies {
   compile deps.recyclerviewv7
   compile deps.cardviewv7
   compile deps.design
-  compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha1'
 
   //https://github.com/FasterXML/jackson-annotations
   compile "com.fasterxml.jackson.core:jackson-annotations:$JacksonVersion"
