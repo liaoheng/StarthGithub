@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="title_activity_about">@string/about</string>
+  <string name="title_activity_repositories_detail">资源库内容</string>
   <string name="menu_user_info_follow">关注</string>
   <string name="menu_user_info_unfollow">取消关注</string>
   <string name="repositories">资源库</string>
