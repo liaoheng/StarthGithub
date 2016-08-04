@@ -10,7 +10,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent">
 
-    <me.liaoheng.github.starth.view.MarkdownAndCodeHighlightView
+    <me.liaoheng.starth.github.view.MarkdownAndCodeHighlightView
         android:id="@+id/repositories_detail_read_me_markdown_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

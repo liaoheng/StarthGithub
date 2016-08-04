@@ -62,12 +62,6 @@ public class MarkdownAndCodeHighlightView extends WebView {
         }
     }
 
-    public MarkdownAndCodeHighlightView(Context context, AttributeSet attrs, int defStyleAttr,
-                                        boolean privateBrowsing) {
-        super(context, attrs, defStyleAttr, privateBrowsing);
-        init();
-    }
-
     @SuppressLint({ "SetJavaScriptEnabled", "AddJavascriptInterface" }) private void init() {
         if (isInEditMode()) {
             return;

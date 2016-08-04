@@ -9,7 +9,6 @@
 
 
   <string name="title_activity_about">@string/about</string>
-  <string name="title_activity_repositories_detail">Repositories Detail</string>
   <string name="menu_user_info_follow">Follow</string>
   <string name="menu_user_info_unfollow">Unfollow</string>
   <string name="repositories">Repositories</string>
