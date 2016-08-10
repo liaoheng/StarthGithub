@@ -4,7 +4,7 @@
   <title>Markdown View</title>
   <link rel="stylesheet" href="github-markdown.css">
   <script src="base64.min.js" ></script>
-  <!-- <script src="markdown.js"></script> -->
+   <!-- <script src="markdown.js"></script> -->
   <style>
       .markdown-body {
           box-sizing: border-box;
@@ -16,8 +16,9 @@
       android.onLoad();
     }
     function setContent(code) {
-      // var html=markdown.toHTML(Base64.decode(code));
+      //  var html=markdown.toHTML(Base64.decode(code));
       var html=Base64.decode(code);
+      // console.log(html);
       document.getElementById('content').innerHTML=html;
     }
   </script>

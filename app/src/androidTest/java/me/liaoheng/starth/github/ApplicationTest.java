@@ -1,4 +1,4 @@
-package me.liaoheng.github.starth;
+package me.liaoheng.starth.github;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
