@@ -14,7 +14,7 @@ import java.io.Serializable;
     private                            int     id;
     private                            String  name;
     @JsonProperty("full_name") private String  fullName;
-    private                            Owner   owner;
+    private                            User   owner;
     @JsonProperty("private") private   boolean privateX;
     private                            String  html_url;
     private                            String  description;
@@ -104,11 +104,11 @@ import java.io.Serializable;
         this.fullName = fullName;
     }
 
-    public Owner getOwner() {
+    public User getOwner() {
         return owner;
     }
 
-    public void setOwner(Owner owner) {
+    public void setOwner(User owner) {
         this.owner = owner;
     }
 

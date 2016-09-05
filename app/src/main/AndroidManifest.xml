@@ -19,7 +19,7 @@
     <activity
         android:name=".ui.LaunchActivity"
         android:configChanges="orientation|keyboardHidden|screenSize"
-        android:launchMode="singleInstance"
+        android:launchMode="singleTask"
         android:theme="@android:style/Theme.NoDisplay">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -32,7 +32,7 @@
         android:label="Starth"
         android:name=".ui.MainActivity"
         android:configChanges="orientation|keyboardHidden|screenSize"
-        android:launchMode="singleInstance"
+        android:launchMode="singleTask"
         android:theme="@style/AppThemeToolBar"/>
 
     <activity

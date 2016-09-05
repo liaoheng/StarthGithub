@@ -59,8 +59,8 @@ public class RepositoriesDetailActivity extends BaseActivity {
         pagerTab.setTabs("File", FileRepositoriesFragment.newInstance(repositories));
         pagerTab.setTabs("Commits",
                 CommitsRepositoriesFragment.newInstance(repositories));
-        pagerTab.setTabs(getString(R.string.following_me),
-                ReadMeRepositoriesFragment.newInstance(repositories));
+        pagerTab.setTabs("Issues",
+                IssuesRepositoriesFragment.newInstance(repositories));
 
         mTabPagerHelper = TabPagerHelper.with(this);
         mTabPagerHelper.getViewPager().setOffscreenPageLimit(3);

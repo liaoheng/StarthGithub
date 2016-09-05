@@ -2,11 +2,11 @@ package me.liaoheng.starth.github.data.net;
 
 import java.util.List;
 import me.liaoheng.starth.github.model.Commits;
+import me.liaoheng.starth.github.model.Issues;
 import me.liaoheng.starth.github.model.Repositories;
 import me.liaoheng.starth.github.model.RepositoriesFileContent;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Path;
@@ -23,8 +23,9 @@ public interface RepositoriesService {
     @GET("repos/{owner}/{repo}/commits") Observable<Response<List<Commits>>> getRepositoriesCommits(
             @Path("owner") String owner, @Path("repo") String repo, @Query("page") long page);
 
-    @GET("repos/{owner}/{repo}/issues") Observable<List<Commits>> getRepositoriesIssues(
-            @Path("owner") String owner, @Path("repo") String repo);
+    @GET("repos/{owner}/{repo}/issues") Observable<Response<List<Issues>>> getRepositoriesIssues(
+            @Path("owner") String owner, @Path("repo") String repo, @Query("state") String state,
+            @Query("page") long page);
 
     @GET("repos/{owner}/{repo}/contents") Observable<Repositories> getRepositoriesContents(
             @Path("owner") String owner, @Path("repo") String repo);
