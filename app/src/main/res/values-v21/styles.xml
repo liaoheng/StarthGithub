@@ -2,14 +2,14 @@
 <resources>
 
   <!--ActionBar-->
-  <style name="AppTheme" parent="AppBaseTheme">
+  <style name="AppTheme.ActionBar" parent="AppBaseTheme">
     <item name="android:windowContentTransitions">true</item>
     <item name="android:windowAllowEnterTransitionOverlap">true</item>
     <item name="android:windowAllowReturnTransitionOverlap">true</item>
   </style>
 
   <!--Toolbar-->
-  <style name="AppThemeToolBar" parent="AppBaseThemeToolBar">
+  <style name="AppTheme.ToolBar" parent="AppTheme.NoActionBar">
     <item name="android:windowContentTransitions">true</item>
     <item name="android:windowAllowEnterTransitionOverlap">true</item>
     <item name="android:windowAllowReturnTransitionOverlap">true</item>

@@ -9,35 +9,37 @@
   </style>
 
   <!--ActionBar-->
-  <style name="AppTheme" parent="AppBaseTheme"/>
-
-  <!--Toolbar base-->
-  <style name="AppBaseThemeToolBar" parent="NoActionBar">
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item name="colorAccent">@color/colorAccent</item>
-  </style>
+  <style name="AppTheme.ActionBar" parent="AppBaseTheme"/>
 
   <!--Toolbar-->
-  <style name="AppThemeToolBar" parent="AppBaseThemeToolBar"/>
+  <style name="AppTheme.ToolBar" parent="AppTheme.NoActionBar"/>
 
   <!--NoActionBar-->
-  <style name="NoActionBar" parent="Theme.AppCompat.Light.NoActionBar"/>
+  <style name="AppTheme.NoActionBar" parent="AppBaseTheme">
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+  </style>
+
+  <!--Fullscreen-->
+  <style name="AppTheme.Fullscreen" parent="AppTheme.NoActionBar">
+    <item name="android:windowFullscreen">true</item>
+    <item name="android:windowContentOverlay">@null</item>
+  </style>
 
   <!--ActionBar 滑动返回-->
-  <style name="AppTheme.SwipeBack" parent="AppTheme">
+  <style name="AppTheme.ActionBar.SwipeBack" parent="AppTheme.ActionBar">
     <item name="android:windowIsTranslucent">true</item>
     <item name="android:windowBackground">@android:color/transparent</item>
   </style>
 
   <!--NoActionBar 滑动返回-->
-  <style name="NoActionBar.SwipeBack" parent="NoActionBar">
+  <style name="AppTheme.NoActionBar.SwipeBack" parent="AppTheme.NoActionBar">
     <item name="android:windowIsTranslucent">true</item>
     <item name="android:windowBackground">@android:color/transparent</item>
   </style>
 
   <!--ToolBar 滑动返回-->
-  <style name="AppThemeToolBar.SwipeBack" parent="AppThemeToolBar">
+  <style name="AppTheme.ToolBar.SwipeBack" parent="AppTheme.ToolBar">
     <item name="android:windowIsTranslucent">true</item>
     <item name="android:windowBackground">@android:color/transparent</item>
   </style>

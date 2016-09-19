@@ -3,6 +3,7 @@
     package="me.liaoheng.starth.github">
 
   <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
   <application
@@ -11,7 +12,7 @@
       android:icon="@mipmap/ic_launcher"
       android:label="@string/app_name"
       android:supportsRtl="true"
-      android:theme="@style/AppTheme">
+      android:theme="@style/AppTheme.ActionBar">
     <meta-data
         android:name="com.github.liaoheng.common.plus.util.CPGlideModule"
         android:value="GlideModule"/>
@@ -33,20 +34,20 @@
         android:name=".ui.MainActivity"
         android:configChanges="orientation|keyboardHidden|screenSize"
         android:launchMode="singleTask"
-        android:theme="@style/AppThemeToolBar"/>
+        android:theme="@style/AppTheme.ToolBar"/>
 
     <activity
         android:name=".ui.UserInfoActivity"
         android:configChanges="orientation|keyboardHidden|screenSize"
-        android:theme="@style/AppThemeToolBar.SwipeBack"/>
+        android:theme="@style/AppTheme.ToolBar.SwipeBack"/>
 
     <activity
-        android:theme="@style/AppThemeToolBar.SwipeBack"
+        android:theme="@style/AppTheme.ToolBar.SwipeBack"
         android:name=".ui.repositories.RepositoriesDetailActivity"
         android:configChanges="orientation|keyboardHidden|screenSize"/>
 
     <activity
-        android:theme="@style/AppThemeToolBar.SwipeBack"
+        android:theme="@style/AppTheme.ToolBar.SwipeBack"
         android:name=".ui.repositories.FileDetailRepositoriesActivity"
         android:configChanges="orientation|keyboardHidden|screenSize"/>
 
@@ -61,7 +62,7 @@
         android:label="@string/title_activity_oauth"/>
 
     <activity
-        android:theme="@style/AppTheme.SwipeBack"
+        android:theme="@style/AppTheme.ActionBar.SwipeBack"
         android:name=".ui.AboutActivity"
         android:configChanges="orientation|keyboardHidden|screenSize"
         android:label="@string/title_activity_about"/>
@@ -69,7 +70,7 @@
     <activity
         android:name=".ui.WebViewActivity"
         android:configChanges="orientation|keyboardHidden|screenSize"
-        android:theme="@style/AppThemeToolBar.SwipeBack"/>
+        android:theme="@style/AppTheme.ToolBar.SwipeBack"/>
   </application>
 
 </manifest>
