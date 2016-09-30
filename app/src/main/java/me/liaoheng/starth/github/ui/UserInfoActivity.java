@@ -30,6 +30,8 @@ import com.github.liaoheng.common.util.UIUtils;
 import com.github.liaoheng.common.util.Utils;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrConfig;
+import com.r0adkll.slidr.model.SlidrListener;
+import com.r0adkll.slidr.model.SlidrListenerAdapter;
 import java.io.IOException;
 import me.liaoheng.starth.github.R;
 import me.liaoheng.starth.github.data.net.NetworkClient;
@@ -63,7 +65,6 @@ public class UserInfoActivity extends BaseActivity {
     @BindView(R.id.user_info_following)  TextView  following;
 
     TabPagerHelper mTabPagerHelper;
-    ProgressHelper mProgressHelper;
     ProgressDialog mFollowProgressDialog;
     Subscription   mFollowSubscription;
 
@@ -84,6 +85,8 @@ public class UserInfoActivity extends BaseActivity {
             return;
         }
 
+        initBaseInfo();
+
         mFollowProgressDialog = UIUtils.createProgressDialog(this, "");
         mFollowProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override public void onCancel(DialogInterface dialog) {
@@ -95,9 +98,7 @@ public class UserInfoActivity extends BaseActivity {
     }
 
     @Override protected void initData() {
-        Glide.with(this).load(mUser.getAvatar_url()).into(avatar);
-        name.setText(mUser.getName());
-        loginName.setText(mUser.getLogin());
+        initBaseInfo();
         String bio = mUser.getBio();
         bio = TextUtils.isEmpty(bio) ? mUser.getLocation() : bio;
 
@@ -124,10 +125,15 @@ public class UserInfoActivity extends BaseActivity {
                 });
     }
 
+    private void initBaseInfo() {
+        Glide.with(this).load(mUser.getAvatar_url()).dontAnimate().into(avatar);
+        name.setText(mUser.getName());
+        loginName.setText(mUser.getLogin());
+    }
+
     @Override public void initView() {
         initToolBar();
         SystemBarHelper.immersiveStatusBar(this, 0);
-        mProgressHelper = ProgressHelper.with(this);
         mTabPagerHelper = TabPagerHelper.with(this);
         SystemBarHelper.setHeightAndPadding(this, getToolbar());
         Slidr.attach(this, new SlidrConfig.Builder().edge(true).build());
@@ -159,7 +165,7 @@ public class UserInfoActivity extends BaseActivity {
 
     private void load() {
         Observable<User> userObservable = NetworkClient.get().getUserService()
-                .getUser(mUser.getLogin()).subscribeOn(Schedulers.io())
+                .getUser(mUser.getLogin()).subscribeOn(Schedulers.io()).compose(this.<User>bindToLifecycle())
                 .map(new Func1<User, User>() {
                     @Override public User call(User user) {
                         try {
@@ -175,15 +181,6 @@ public class UserInfoActivity extends BaseActivity {
                 });
         mFollowSubscription = OkHttp3Utils.get()
                 .addSubscribe(userObservable, new Callback.EmptyCallback<User>() {
-                    @Override public void onPreExecute() {
-                        UIUtils.viewVisible((View) mProgressHelper.getProgressBar().getParent());
-                        mProgressHelper.visible();
-                    }
-
-                    @Override public void onPostExecute() {
-                        UIUtils.viewGone((View) mProgressHelper.getProgressBar().getParent());
-                        mProgressHelper.gone();
-                    }
 
                     @Override public void onSuccess(User user) {
                         if (user == null) {

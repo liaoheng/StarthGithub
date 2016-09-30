@@ -1,7 +1,10 @@
 package me.liaoheng.starth.github.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
@@ -23,6 +26,7 @@ import me.liaoheng.starth.github.R;
 import me.liaoheng.starth.github.model.User;
 import me.liaoheng.starth.github.model.UserLogin;
 import me.liaoheng.starth.github.ui.base.BaseActivity;
+import me.liaoheng.starth.github.util.Constants;
 
 /**
  * 主界面
@@ -86,7 +90,13 @@ public class MainActivity extends BaseActivity {
 
         @OnClick(R.id.user_avatar) void openUserInfo() {
             mDrawerLayout.closeDrawers();
-            UserInfoActivity.start(getActivity(), UserLogin.get().getUser());
+            Intent intent = new Intent(getActivity(), UserInfoActivity.class);
+            intent.putExtra(Constants.USER, UserLogin.get().getUser());
+            ActivityOptionsCompat options =
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+                            mUserAvatar, "xxx");
+            ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
+            //UserInfoActivity.start(getActivity(), UserLogin.get().getUser());
         }
 
         @Override public void onHandle(User item) {

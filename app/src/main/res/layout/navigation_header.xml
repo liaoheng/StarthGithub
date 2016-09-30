@@ -8,6 +8,7 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
   <ImageButton
+          android:transitionName="xxx"
       android:scaleType="centerCrop"
       android:background="?selectableItemBackgroundBorderless"
       android:id="@+id/user_avatar"

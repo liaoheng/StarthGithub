@@ -49,6 +49,15 @@ public class User implements Serializable  {
     @JsonIgnore
     private boolean isFollow;
 
+    public User() {
+    }
+
+    public User(User user) {
+        avatar_url = user.getAvatar_url();
+        login = user.getLogin();
+        name = user.getName();
+    }
+
     public boolean isFollow() {
         return isFollow;
     }
