@@ -11,13 +11,14 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.github.liaoheng.common.plus.core.ProgressHelper;
-import com.github.liaoheng.common.plus.util.OkHttp3Utils;
+import com.github.liaoheng.common.network.OkHttp3Utils;
+import com.github.liaoheng.common.ui.core.ProgressHelper;
 import com.github.liaoheng.common.util.Callback;
 import com.github.liaoheng.common.util.L;
 import com.github.liaoheng.common.util.SystemException;
 import com.github.liaoheng.common.util.SystemRuntimeException;
 import com.github.liaoheng.common.util.UIUtils;
+import com.github.liaoheng.common.util.Utils;
 import java.io.IOException;
 import me.liaoheng.starth.github.R;
 import me.liaoheng.starth.github.data.net.NetworkClient;
@@ -127,7 +128,7 @@ public class OAuthActivity extends BaseActivity {
                             }
                         });
 
-                subscription = OkHttp3Utils.get()
+                subscription = Utils
                         .addSubscribe(observable, new Callback.EmptyCallback<User>() {
 
                             @Override public void onPreExecute() {

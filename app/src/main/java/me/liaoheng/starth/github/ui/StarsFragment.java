@@ -3,12 +3,12 @@ package me.liaoheng.starth.github.ui;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
-import com.github.liaoheng.common.plus.adapter.IBaseAdapter;
-import com.github.liaoheng.common.plus.core.RecyclerViewHelper;
-import com.github.liaoheng.common.plus.util.OkHttp3Utils;
+import com.github.liaoheng.common.adapter.base.IBaseAdapter;
+import com.github.liaoheng.common.adapter.core.RecyclerViewHelper;
 import com.github.liaoheng.common.util.Callback;
 import com.github.liaoheng.common.util.L;
 import com.github.liaoheng.common.util.SystemException;
+import com.github.liaoheng.common.util.Utils;
 import com.github.liaoheng.common.util.ValidateUtils;
 import java.util.List;
 import me.liaoheng.starth.github.R;
@@ -83,7 +83,7 @@ public class StarsFragment extends LazyFragment {
     private void load(final Page page, final Page.PageState state) {
         Observable<Response<List<Repositories>>> userStars = NetworkClient.get().getUserService()
                 .getUserStars(user.getLogin(), page.getCurPage()).subscribeOn(Schedulers.io());
-        OkHttp3Utils.get().addSubscribe(userStars,
+        Utils.addSubscribe(userStars,
                 new Callback.EmptyCallback<Response<List<Repositories>>>() {
 
                     @Override public void onPreExecute() {

@@ -12,7 +12,7 @@
       android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
     <android.support.v7.widget.Toolbar
-        android:id="@id/lcp_toolbar"
+        android:id="@id/lcu_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:background="?colorPrimaryDark"

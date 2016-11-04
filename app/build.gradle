@@ -106,5 +106,5 @@ dependencies {
   compile 'net.yslibrary.licenseadapter:licenseadapter:1.2.4'
 
 
-  compile 'com.github.liaoheng.common:plus:0.0.1-SNAPSHOT'
+  compile 'com.github.liaoheng:common-plus:0.0.4-SNAPSHOT'
 }

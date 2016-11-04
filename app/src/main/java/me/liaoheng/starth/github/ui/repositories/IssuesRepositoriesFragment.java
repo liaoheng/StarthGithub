@@ -12,14 +12,14 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
-import com.github.liaoheng.common.plus.adapter.IBaseAdapter;
-import com.github.liaoheng.common.plus.adapter.holder.BaseRecyclerViewHolder;
-import com.github.liaoheng.common.plus.core.RecyclerViewHelper;
-import com.github.liaoheng.common.plus.util.OkHttp3Utils;
+import com.github.liaoheng.common.adapter.base.IBaseAdapter;
+import com.github.liaoheng.common.adapter.core.RecyclerViewHelper;
+import com.github.liaoheng.common.adapter.holder.BaseRecyclerViewHolder;
 import com.github.liaoheng.common.util.Callback;
 import com.github.liaoheng.common.util.L;
 import com.github.liaoheng.common.util.SystemException;
 import com.github.liaoheng.common.util.UIUtils;
+import com.github.liaoheng.common.util.Utils;
 import com.github.liaoheng.common.util.ValidateUtils;
 import java.util.List;
 import me.liaoheng.starth.github.R;
@@ -93,7 +93,7 @@ public class IssuesRepositoriesFragment extends LazyFragment {
                 .getRepositoriesIssues(mRepositories.getOwner().getLogin(), mRepositories.getName(),
                         "all", page.getCurPage()).subscribeOn(Schedulers.io());
 
-        OkHttp3Utils.get()
+        Utils
                 .addSubscribe(observable, new Callback.EmptyCallback<Response<List<Issues>>>() {
                     @Override public void onPreExecute() {
                         if (Page.PageState.isRefreshUI(state)) {
@@ -156,7 +156,7 @@ public class IssuesRepositoriesFragment extends LazyFragment {
 
         @Override public void onBindViewHolderItem(IssuesRepositoriesViewHolder holder,
                                                    Issues issues, int position) {
-            holder.onHandle(issues);
+            holder.onHandle(issues,position);
         }
     }
 
@@ -172,7 +172,7 @@ public class IssuesRepositoriesFragment extends LazyFragment {
             ButterKnife.bind(this, itemView);
         }
 
-        @Override public void onHandle(final Issues item) {
+        @Override public void onHandle(final Issues item,int position) {
             Glide.with(getContext()).load(item.getUser().getAvatar_url()).into(avatar);
             avatar.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {

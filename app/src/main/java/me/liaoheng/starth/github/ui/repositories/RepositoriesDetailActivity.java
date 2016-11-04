@@ -4,8 +4,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import butterknife.ButterKnife;
-import com.github.liaoheng.common.plus.core.TabPagerHelper;
-import com.github.liaoheng.common.plus.model.PagerTab;
+import com.github.liaoheng.common.core.BackPressedListener;
+import com.github.liaoheng.common.ui.core.TabPagerHelper;
+import com.github.liaoheng.common.ui.model.PagerTab;
 import com.github.liaoheng.common.util.L;
 import com.github.liaoheng.common.util.UIUtils;
 import me.liaoheng.starth.github.R;
@@ -25,15 +26,10 @@ public class RepositoriesDetailActivity extends BaseActivity {
         UIUtils.startActivity(context, RepositoriesDetailActivity.class, bundle);
     }
 
-    onBackPressedListener mBackPressedListener;
+    BackPressedListener mBackPressedListener;
 
-    public void setBackPressedListener(onBackPressedListener backPressedListener) {
+    public void setBackPressedListener(BackPressedListener backPressedListener) {
         this.mBackPressedListener = backPressedListener;
-    }
-
-    // TODO:应该放入Common Lib
-    public interface onBackPressedListener {
-        boolean backPressed();
     }
 
     TabPagerHelper mTabPagerHelper;
@@ -73,7 +69,7 @@ public class RepositoriesDetailActivity extends BaseActivity {
     }
 
     @Override public void onBackPressed() {
-        if (mBackPressedListener != null && mBackPressedListener.backPressed()) {
+        if (mBackPressedListener != null && mBackPressedListener.backPressed(null)) {
             super.onBackPressed();
         }
     }

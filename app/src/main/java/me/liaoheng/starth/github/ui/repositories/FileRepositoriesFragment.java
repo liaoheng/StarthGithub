@@ -10,15 +10,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.github.liaoheng.common.plus.adapter.BaseRecyclerAdapter;
-import com.github.liaoheng.common.plus.adapter.IBaseAdapter;
-import com.github.liaoheng.common.plus.adapter.holder.BaseRecyclerViewHolder;
-import com.github.liaoheng.common.plus.core.RecyclerViewHelper;
-import com.github.liaoheng.common.plus.util.OkHttp3Utils;
+import com.github.liaoheng.common.adapter.base.BaseRecyclerAdapter;
+import com.github.liaoheng.common.adapter.base.IBaseAdapter;
+import com.github.liaoheng.common.adapter.core.RecyclerViewHelper;
+import com.github.liaoheng.common.adapter.holder.BaseRecyclerViewHolder;
+import com.github.liaoheng.common.core.BackPressedListener;
 import com.github.liaoheng.common.util.Callback;
 import com.github.liaoheng.common.util.L;
 import com.github.liaoheng.common.util.StringUtils;
 import com.github.liaoheng.common.util.SystemException;
+import com.github.liaoheng.common.util.Utils;
 import java.util.List;
 import me.liaoheng.starth.github.R;
 import me.liaoheng.starth.github.data.net.NetworkClient;
@@ -36,8 +37,7 @@ import rx.schedulers.Schedulers;
  * @author liaoheng
  * @version 2016-07-19 12:49
  */
-public class FileRepositoriesFragment extends LazyFragment
-        implements RepositoriesDetailActivity.onBackPressedListener {
+public class FileRepositoriesFragment extends LazyFragment implements BackPressedListener {
 
     public static Fragment newInstance(Repositories repositories) {
         FileRepositoriesFragment fragment = new FileRepositoriesFragment();
@@ -97,7 +97,7 @@ public class FileRepositoriesFragment extends LazyFragment
         super.onDetach();
     }
 
-    @Override public boolean backPressed() {
+    @Override public boolean backPressed(Object o) {
         if (breadcrumb == null) {
             return true;
         }
@@ -150,7 +150,7 @@ public class FileRepositoriesFragment extends LazyFragment
         @Override public void onBindViewHolderItem(
                 BaseRecyclerViewHolder<RepositoriesFileContent> holder,
                 RepositoriesFileContent repositoriesFileContent, int position) {
-            holder.onHandle(repositoriesFileContent);
+            holder.onHandle(repositoriesFileContent, position);
         }
     }
 
@@ -163,7 +163,7 @@ public class FileRepositoriesFragment extends LazyFragment
             ButterKnife.bind(this, itemView);
         }
 
-        @Override public void onHandle(RepositoriesFileContent item) {
+        @Override public void onHandle(RepositoriesFileContent item, int position) {
             name.setText(item.getName());
         }
     }
@@ -179,7 +179,7 @@ public class FileRepositoriesFragment extends LazyFragment
             ButterKnife.bind(this, itemView);
         }
 
-        @Override public void onHandle(RepositoriesFileContent item) {
+        @Override public void onHandle(RepositoriesFileContent item, int position) {
             name.setText(item.getName());
             String format = PrettyFormat.with().setUnit(ByteUnit.Kb).setFractionDigits(2)
                     .format(item.getSize());
@@ -203,7 +203,7 @@ public class FileRepositoriesFragment extends LazyFragment
         Observable<List<RepositoriesFileContent>> repositoriesObservable = NetworkClient.get()
                 .getReposService().getRepositoriesPathContent(mRepositories.getOwner().getLogin(),
                         mRepositories.getName(), pathName).subscribeOn(Schedulers.io());
-        mGetFileSubscription = OkHttp3Utils.get().addSubscribe(repositoriesObservable,
+        mGetFileSubscription = Utils.addSubscribe(repositoriesObservable,
                 new Callback.EmptyCallback<List<RepositoriesFileContent>>() {
                     @Override public void onPreExecute() {
                         mRecyclerViewHelper.setRefreshCallback(true);

@@ -1,6 +1,6 @@
 package me.liaoheng.starth.github.util;
 
-import com.github.liaoheng.common.plus.util.OkHttp3Utils;
+import com.github.liaoheng.common.network.OkHttp3Utils;
 import me.liaoheng.starth.github.BuildConfig;
 import me.liaoheng.starth.github.model.UserLogin;
 import retrofit2.Retrofit;

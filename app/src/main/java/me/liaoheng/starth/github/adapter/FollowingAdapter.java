@@ -3,7 +3,7 @@ package me.liaoheng.starth.github.adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import com.github.liaoheng.common.plus.core.ListDuplicateHelper;
+import com.github.liaoheng.common.core.ListDuplicateHelper;
 import java.util.List;
 import me.liaoheng.starth.github.R;
 import me.liaoheng.starth.github.adapter.viewholder.FollowingViewHolder;
@@ -61,6 +61,6 @@ public class FollowingAdapter extends BaseAdapter<Following, FollowingViewHolder
 
     @Override public void onBindViewHolderItem(FollowingViewHolder holder, Following following,
                                                int position) {
-        holder.onHandle(following);
+        holder.onHandle(following,position);
     }
 }

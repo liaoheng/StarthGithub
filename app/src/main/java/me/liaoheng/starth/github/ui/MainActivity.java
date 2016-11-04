@@ -18,9 +18,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import com.flyco.systembar.SystemBarHelper;
-import com.github.liaoheng.common.plus.adapter.holder.BaseViewHolder;
-import com.github.liaoheng.common.plus.core.TabPagerHelper;
-import com.github.liaoheng.common.plus.model.PagerTab;
+import com.github.liaoheng.common.adapter.holder.BaseListViewHolder;
+import com.github.liaoheng.common.ui.core.TabPagerHelper;
+import com.github.liaoheng.common.ui.model.PagerTab;
 import com.github.liaoheng.common.util.UIUtils;
 import me.liaoheng.starth.github.R;
 import me.liaoheng.starth.github.model.User;
@@ -76,10 +76,10 @@ public class MainActivity extends BaseActivity {
                 });
 
         View headerView = mNavigationView.getHeaderView(0);
-        new NavigationHeaderViewHolder(headerView).onHandle(user);
+        new NavigationHeaderViewHolder(headerView).onHandle(user,0);
     }
 
-    class NavigationHeaderViewHolder extends BaseViewHolder<User> {
+    class NavigationHeaderViewHolder extends BaseListViewHolder<User> {
         @BindView(R.id.user_avatar) ImageView mUserAvatar;
         @BindView(R.id.user_name)   TextView  mUserName;
 
@@ -99,7 +99,7 @@ public class MainActivity extends BaseActivity {
             //UserInfoActivity.start(getActivity(), UserLogin.get().getUser());
         }
 
-        @Override public void onHandle(User item) {
+        @Override public void onHandle(User item,int position) {
             Glide.with(getContext()).load(UserLogin.get().getAvatar()).into(mUserAvatar);
             mUserName.setText(UserLogin.get().getName());
         }

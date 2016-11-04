@@ -6,7 +6,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
-import com.github.liaoheng.common.plus.adapter.holder.BaseRecyclerViewHolder;
+import com.github.liaoheng.common.adapter.holder.BaseRecyclerViewHolder;
 import me.liaoheng.starth.github.R;
 import me.liaoheng.starth.github.model.Followers;
 
@@ -24,7 +24,7 @@ public class FollowersViewHolder extends BaseRecyclerViewHolder<Followers> {
         ButterKnife.bind(this, itemView);
     }
 
-    @Override public void onHandle(Followers item) {
+    @Override public void onHandle(Followers item,int position) {
         Glide.with(getContext()).load(item.getAvatar_url()).into(avatar);
         name.setText(item.getLogin());
     }

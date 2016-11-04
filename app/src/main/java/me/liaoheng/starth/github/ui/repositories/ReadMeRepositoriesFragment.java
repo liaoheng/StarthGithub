@@ -1,17 +1,15 @@
 package me.liaoheng.starth.github.ui.repositories;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.github.liaoheng.common.plus.util.OkHttp3Utils;
 import com.github.liaoheng.common.util.Callback;
 import com.github.liaoheng.common.util.L;
 import com.github.liaoheng.common.util.SystemException;
-import java.io.FilenameFilter;
+import com.github.liaoheng.common.util.Utils;
 import java.io.IOException;
 import me.liaoheng.starth.github.R;
 import me.liaoheng.starth.github.data.net.NetworkClient;
@@ -20,7 +18,6 @@ import me.liaoheng.starth.github.ui.base.LazyFragment;
 import me.liaoheng.starth.github.util.Constants;
 import me.liaoheng.starth.github.view.MarkdownAndCodeHighlightView;
 import okhttp3.ResponseBody;
-import org.apache.commons.io.FilenameUtils;
 import rx.Observable;
 import rx.schedulers.Schedulers;
 
@@ -67,7 +64,7 @@ public class ReadMeRepositoriesFragment extends LazyFragment {
                 .getRepositoriesReadMe(repositories.getOwner().getLogin(), repositories.getName())
                 .subscribeOn(Schedulers.io());
 
-        OkHttp3Utils.get()
+        Utils
                 .addSubscribe(repositoriesObservable, new Callback.EmptyCallback<ResponseBody>() {
                     @Override public void onPreExecute() {
                         mSwipeRefreshLayout.post(new Runnable() {

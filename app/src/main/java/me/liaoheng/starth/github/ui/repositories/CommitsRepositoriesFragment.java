@@ -10,13 +10,13 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
-import com.github.liaoheng.common.plus.adapter.IBaseAdapter;
-import com.github.liaoheng.common.plus.adapter.holder.BaseRecyclerViewHolder;
-import com.github.liaoheng.common.plus.core.RecyclerViewHelper;
-import com.github.liaoheng.common.plus.util.OkHttp3Utils;
+import com.github.liaoheng.common.adapter.base.IBaseAdapter;
+import com.github.liaoheng.common.adapter.core.RecyclerViewHelper;
+import com.github.liaoheng.common.adapter.holder.BaseRecyclerViewHolder;
 import com.github.liaoheng.common.util.Callback;
 import com.github.liaoheng.common.util.L;
 import com.github.liaoheng.common.util.SystemException;
+import com.github.liaoheng.common.util.Utils;
 import com.github.liaoheng.common.util.ValidateUtils;
 import java.util.List;
 import me.liaoheng.starth.github.R;
@@ -101,7 +101,7 @@ public class CommitsRepositoriesFragment extends LazyFragment {
 
         @Override public void onBindViewHolderItem(CommitsRepositoriesViewHolder holder,
                                                    Commits commits, int position) {
-            holder.onHandle(commits);
+            holder.onHandle(commits,position);
         }
     }
 
@@ -117,7 +117,7 @@ public class CommitsRepositoriesFragment extends LazyFragment {
             ButterKnife.bind(this, itemView);
         }
 
-        @Override public void onHandle(final Commits item) {
+        @Override public void onHandle(final Commits item,int position) {
             if (item.getCommitter() != null) {
                 Glide.with(getContext()).load(item.getCommitter().getAvatar_url()).into(avatar);
             }
@@ -137,7 +137,7 @@ public class CommitsRepositoriesFragment extends LazyFragment {
                 .getReposService().getRepositoriesCommits(mRepositories.getOwner().getLogin(),
                         mRepositories.getName(), page.getCurPage())
                 .subscribeOn(Schedulers.io());
-        OkHttp3Utils.get().addSubscribe(repositoriesObservable,
+       Utils.addSubscribe(repositoriesObservable,
                 new Callback.EmptyCallback<Response<List<Commits>>>() {
                     @Override public void onPreExecute() {
                         if (Page.PageState.isRefreshUI(state)) {

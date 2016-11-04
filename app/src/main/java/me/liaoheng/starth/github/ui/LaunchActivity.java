@@ -3,7 +3,6 @@ package me.liaoheng.starth.github.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import com.github.liaoheng.common.plus.util.OkHttp3Utils;
 import com.github.liaoheng.common.util.L;
 import com.github.liaoheng.common.util.UIUtils;
 import me.liaoheng.starth.github.model.UserLogin;

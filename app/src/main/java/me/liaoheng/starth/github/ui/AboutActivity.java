@@ -6,7 +6,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.github.liaoheng.common.plus.core.RecyclerViewHelper;
+import com.github.liaoheng.common.adapter.core.RecyclerViewHelper;
 import com.github.liaoheng.common.util.AppUtils;
 import com.github.liaoheng.common.util.L;
 import com.github.liaoheng.common.util.SystemException;

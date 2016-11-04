@@ -2,5 +2,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-  <include layout="@layout/lcp_view_list"/>
+  <include layout="@layout/lca_view_list"/>
 </android.support.design.widget.CoordinatorLayout>

@@ -2,7 +2,7 @@ package me.liaoheng.starth.github.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import com.github.liaoheng.common.plus.adapter.BaseRecyclerAdapter;
+import com.github.liaoheng.common.adapter.base.BaseRecyclerAdapter;
 import java.util.List;
 
 /**

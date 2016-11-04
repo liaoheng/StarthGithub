@@ -162,7 +162,7 @@
 
 
       <android.support.v7.widget.Toolbar
-          android:id="@id/lcp_toolbar"
+          android:id="@id/lcu_toolbar"
           android:layout_width="match_parent"
           android:layout_height="?attr/actionBarSize"
           android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -183,12 +183,12 @@
         app:tabSelectedTextColor="@android:color/white"
         app:tabIndicatorColor="@android:color/white"
         android:background="?colorPrimary"
-        android:id="@id/lcp_tab_pager_view_tab"
+        android:id="@id/lcu_tab_pager_view_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <android.support.v4.view.ViewPager
-        android:id="@id/lcp_tab_pager_view_pager"
+        android:id="@id/lcu_tab_pager_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
