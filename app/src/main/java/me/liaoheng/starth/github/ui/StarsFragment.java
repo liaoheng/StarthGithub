@@ -69,7 +69,7 @@ public class StarsFragment extends LazyFragment {
                         load(mPage.more(), Page.PageState.MORE);
                     }
                 }).build();
-        mStarsAdapter = new StarsAdapter(getActivity(), null);
+        mStarsAdapter = new StarsAdapter(getActivity());
         mStarsAdapter.setOnItemClickListener(new IBaseAdapter.OnItemClickListener<Repositories>() {
             @Override public void onItemClick(Repositories item, View view, int position) {
                 RepositoriesDetailActivity.start(getActivity(), item);

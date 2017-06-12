@@ -17,8 +17,8 @@ public class FollowersAdapter extends BaseAdapter<Followers, FollowersViewHolder
 
     ListDuplicateHelper<Followers> mListDuplicateHelper;
 
-    public FollowersAdapter(Context context, List<Followers> list) {
-        super(context, list);
+    public FollowersAdapter(Context context) {
+        super(context);
         mListDuplicateHelper = new ListDuplicateHelper<>(getList());
     }
 

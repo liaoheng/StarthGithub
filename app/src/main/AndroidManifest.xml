@@ -14,7 +14,7 @@
       android:supportsRtl="true"
       android:theme="@style/AppTheme.ActionBar">
     <meta-data
-        android:name="com.github.liaoheng.common.plus.util.CPGlideModule"
+        android:name="com.github.liaoheng.common.network.CNGlideModule"
         android:value="GlideModule"/>
 
     <activity

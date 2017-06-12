@@ -10,6 +10,8 @@ import com.github.liaoheng.common.util.L;
 import com.github.liaoheng.common.util.SystemException;
 import com.github.liaoheng.common.util.Utils;
 import com.github.liaoheng.common.util.ValidateUtils;
+
+import java.util.ArrayList;
 import java.util.List;
 import me.liaoheng.starth.github.R;
 import me.liaoheng.starth.github.adapter.RepositoriesAdapter;
@@ -69,7 +71,7 @@ public class RepositoriesFragment extends LazyFragment {
                         load(mPage.more(), Page.PageState.MORE);
                     }
                 }).build();
-        mRepositoriesAdapter = new RepositoriesAdapter(getActivity(), null);
+        mRepositoriesAdapter = new RepositoriesAdapter(getActivity());
         mRepositoriesAdapter
                 .setOnItemClickListener(new IBaseAdapter.OnItemClickListener<Repositories>() {
                     @Override public void onItemClick(Repositories item, View view, int position) {

@@ -69,7 +69,7 @@ public class FollowersFragment extends LazyFragment {
                         load(mPage.more(), Page.PageState.MORE);
                     }
                 }).build();
-        mFollowersAdapter = new FollowersAdapter(getActivity(), null);
+        mFollowersAdapter = new FollowersAdapter(getActivity());
         mFollowersAdapter.setOnItemClickListener(new IBaseAdapter.OnItemClickListener<Followers>() {
             @Override public void onItemClick(Followers item, View view, int position) {
                 UserInfoActivity.start(getActivity(), new User().setLogin(item.getLogin()));

@@ -17,8 +17,8 @@ public class FollowingAdapter extends BaseAdapter<Following, FollowingViewHolder
 
     ListDuplicateHelper<Following> mListDuplicateHelper;
 
-    public FollowingAdapter(Context context, List<Following> list) {
-        super(context, list);
+    public FollowingAdapter(Context context) {
+        super(context);
         mListDuplicateHelper = new ListDuplicateHelper<>(getList());
     }
 
