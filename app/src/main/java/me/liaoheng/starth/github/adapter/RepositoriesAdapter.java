@@ -17,8 +17,8 @@ public class RepositoriesAdapter extends BaseAdapter<Repositories, RepositoriesV
 
     ListDuplicateHelper<Repositories> mListDuplicateHelper;
 
-    public RepositoriesAdapter(Context context, List<Repositories> list) {
-        super(context, list);
+    public RepositoriesAdapter(Context context) {
+        super(context);
         mListDuplicateHelper = new ListDuplicateHelper<>(getList());
     }
 

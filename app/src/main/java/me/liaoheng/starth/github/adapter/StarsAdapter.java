@@ -17,8 +17,8 @@ public class StarsAdapter extends BaseAdapter<Repositories, StarsViewHolder> {
 
     ListDuplicateHelper<Repositories> mListDuplicateHelper;
 
-    public StarsAdapter(Context context, List<Repositories> list) {
-        super(context, list);
+    public StarsAdapter(Context context) {
+        super(context);
         mListDuplicateHelper = new ListDuplicateHelper<>(getList());
     }
 
