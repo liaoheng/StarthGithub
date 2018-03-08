@@ -15,6 +15,10 @@ import java.util.List;
 public abstract class BaseAdapter<K, V extends RecyclerView.ViewHolder>
         extends BaseRecyclerAdapter<K, V> {
 
+    public BaseAdapter(Context context) {
+        super(context);
+    }
+
     public BaseAdapter(Context context, List<K> list) {
         super(context, list == null ? new ArrayList<K>() : list);
     }

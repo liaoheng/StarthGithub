@@ -69,7 +69,7 @@ public class RepositoriesFragment extends LazyFragment {
                         load(mPage.more(), Page.PageState.MORE);
                     }
                 }).build();
-        mRepositoriesAdapter = new RepositoriesAdapter(getActivity(), null);
+        mRepositoriesAdapter = new RepositoriesAdapter(getActivity());
         mRepositoriesAdapter
                 .setOnItemClickListener(new IBaseAdapter.OnItemClickListener<Repositories>() {
                     @Override public void onItemClick(Repositories item, View view, int position) {
