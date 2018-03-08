@@ -11,13 +11,16 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.github.liaoheng.common.plus.core.ProgressHelper;
-import com.github.liaoheng.common.plus.util.OkHttp3Utils;
+import com.github.liaoheng.common.ui.core.ProgressHelper;
+import com.github.liaoheng.common.network.OkHttp3Utils;
 import com.github.liaoheng.common.util.Callback;
 import com.github.liaoheng.common.util.L;
+import com.github.liaoheng.common.util.SystemDataException;
 import com.github.liaoheng.common.util.SystemException;
 import com.github.liaoheng.common.util.SystemRuntimeException;
 import com.github.liaoheng.common.util.UIUtils;
+import com.github.liaoheng.common.util.Utils;
+
 import java.io.IOException;
 import me.liaoheng.starth.github.R;
 import me.liaoheng.starth.github.data.net.NetworkClient;
@@ -72,12 +75,12 @@ public class OAuthActivity extends BaseActivity {
         mOAuthWebView.setWebViewClient(new WebViewClient() {
             @Override public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
-                mProgressHelper.visible();
+                mProgressHelper.show();
             }
 
             @Override public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                mProgressHelper.gone();
+                mProgressHelper.hide();
             }
 
             @Override public boolean shouldOverrideUrlLoading(WebView view, final String url) {
@@ -94,7 +97,7 @@ public class OAuthActivity extends BaseActivity {
                         .map(new Func1<AccessToken, AccessToken>() {
                             @Override public AccessToken call(AccessToken accessToken) {
                                 if (!TextUtils.isEmpty(accessToken.getError())) {
-                                    throw new SystemRuntimeException(accessToken.getError());
+                                    throw new SystemRuntimeException(new SystemDataException(accessToken.getError()));
                                 }
                                 L.d(TAG, "access_token  : %s", accessToken);
                                 UserLogin.get().setAccessToken(accessToken.getAccess_token());
@@ -111,7 +114,7 @@ public class OAuthActivity extends BaseActivity {
                                     boolean successful = execute.isSuccessful();
                                     if (!successful) {
                                         throw new SystemRuntimeException(
-                                                execute.errorBody().string());
+                                                new SystemDataException(execute.errorBody().string()));
                                     }
                                     User user = execute.body();
                                     L.d(TAG, "cur user  : %s", user);
@@ -127,7 +130,7 @@ public class OAuthActivity extends BaseActivity {
                             }
                         });
 
-                subscription = OkHttp3Utils.get()
+                subscription = Utils
                         .addSubscribe(observable, new Callback.EmptyCallback<User>() {
 
                             @Override public void onPreExecute() {

@@ -18,10 +18,9 @@ import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
 import com.example.KMNumbers;
 import com.flyco.systembar.SystemBarHelper;
-import com.github.liaoheng.common.plus.core.ProgressHelper;
-import com.github.liaoheng.common.plus.core.TabPagerHelper;
-import com.github.liaoheng.common.plus.model.PagerTab;
-import com.github.liaoheng.common.plus.util.OkHttp3Utils;
+import com.github.liaoheng.common.ui.core.ProgressHelper;
+import com.github.liaoheng.common.ui.core.TabPagerHelper;
+import com.github.liaoheng.common.ui.model.PagerTab;
 import com.github.liaoheng.common.util.Callback;
 import com.github.liaoheng.common.util.L;
 import com.github.liaoheng.common.util.SystemException;
@@ -97,7 +96,7 @@ public class UserInfoActivity extends BaseActivity {
         load();
     }
 
-    @Override protected void initData() {
+    protected void initData() {
         initBaseInfo();
         String bio = mUser.getBio();
         bio = TextUtils.isEmpty(bio) ? mUser.getLocation() : bio;
@@ -131,7 +130,7 @@ public class UserInfoActivity extends BaseActivity {
         loginName.setText(mUser.getLogin());
     }
 
-    @Override public void initView() {
+     public void initView() {
         initToolBar();
         SystemBarHelper.immersiveStatusBar(this, 0);
         mTabPagerHelper = TabPagerHelper.with(this);
@@ -179,7 +178,7 @@ public class UserInfoActivity extends BaseActivity {
                         return user;
                     }
                 });
-        mFollowSubscription = OkHttp3Utils.get()
+        mFollowSubscription =Utils
                 .addSubscribe(userObservable, new Callback.EmptyCallback<User>() {
 
                     @Override public void onSuccess(User user) {
@@ -223,7 +222,7 @@ public class UserInfoActivity extends BaseActivity {
                     }
                 });
 
-        OkHttp3Utils.get().addSubscribe(followObservable, new Callback.EmptyCallback<Boolean>() {
+        Utils.addSubscribe(followObservable, new Callback.EmptyCallback<Boolean>() {
             @Override public void onPreExecute() {
                 UIUtils.showDialog(mFollowProgressDialog);
             }

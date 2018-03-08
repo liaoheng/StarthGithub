@@ -3,12 +3,12 @@ package me.liaoheng.starth.github.ui;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
-import com.github.liaoheng.common.plus.adapter.IBaseAdapter;
-import com.github.liaoheng.common.plus.core.RecyclerViewHelper;
-import com.github.liaoheng.common.plus.util.OkHttp3Utils;
+import com.github.liaoheng.common.adapter.base.IBaseAdapter;
+import com.github.liaoheng.common.adapter.core.RecyclerViewHelper;
 import com.github.liaoheng.common.util.Callback;
 import com.github.liaoheng.common.util.L;
 import com.github.liaoheng.common.util.SystemException;
+import com.github.liaoheng.common.util.Utils;
 import com.github.liaoheng.common.util.ValidateUtils;
 import java.util.List;
 import me.liaoheng.starth.github.R;
@@ -64,7 +64,7 @@ public class FollowersFragment extends LazyFragment {
                 }).addLoadMoreFooterView()
                 .setFooterLoadMoreListener(new RecyclerViewHelper.LoadMoreListener() {
                     @Override public void onLoadMore() {
-                        mRecyclerViewHelper.loading();
+                        mRecyclerViewHelper.changeToLoadMoreLoading();
                         load(mPage.more(), Page.PageState.MORE);
                     }
                 }).build();
@@ -82,22 +82,22 @@ public class FollowersFragment extends LazyFragment {
     private void load(final Page page, final Page.PageState state) {
         Observable<Response<List<Followers>>> userStars = NetworkClient.get().getUserService()
                 .getUserFollowers(user.getLogin(), page.getCurPage()).subscribeOn(Schedulers.io());
-        OkHttp3Utils.get()
+        Utils
                 .addSubscribe(userStars, new Callback.EmptyCallback<Response<List<Followers>>>() {
 
                     @Override public void onPreExecute() {
                         if (Page.PageState.isRefreshUI(state)) {
-                            mRecyclerViewHelper.setRefreshCallback(true);
+                            mRecyclerViewHelper.setSwipeRefreshing(true);
                         } else {
-                            mRecyclerViewHelper.setLoading(true);
+                            mRecyclerViewHelper.setLoadMoreLoading(true);
                         }
                     }
 
                     @Override public void onPostExecute() {
                         if (Page.PageState.isRefreshUI(state)) {
-                            mRecyclerViewHelper.setRefreshCallback(false);
+                            mRecyclerViewHelper.setSwipeRefreshing(false);
                         } else {
-                            mRecyclerViewHelper.setLoading(false);
+                            mRecyclerViewHelper.setLoadMoreLoading(false);
                         }
                     }
 
@@ -109,7 +109,7 @@ public class FollowersFragment extends LazyFragment {
                         NetworkClient.get().setPage(listResponse.headers(), page);
 
                         if (Page.PageState.isMoreData(state)) {
-                            mRecyclerViewHelper.setHasLoadedAllItems(page.isLast());
+                            mRecyclerViewHelper.setLoadMoreHasLoadedAllItems(page.isLast());
                         }
 
                         if (Page.PageState.isRefreshUI(state)) {

@@ -3,12 +3,13 @@ package me.liaoheng.starth.github.ui;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
-import com.github.liaoheng.common.plus.adapter.IBaseAdapter;
-import com.github.liaoheng.common.plus.core.RecyclerViewHelper;
-import com.github.liaoheng.common.plus.util.OkHttp3Utils;
+import com.github.liaoheng.common.adapter.base.IBaseAdapter;
+import com.github.liaoheng.common.adapter.core.RecyclerViewHelper;
+import com.github.liaoheng.common.network.OkHttp3Utils;
 import com.github.liaoheng.common.util.Callback;
 import com.github.liaoheng.common.util.L;
 import com.github.liaoheng.common.util.SystemException;
+import com.github.liaoheng.common.util.Utils;
 import com.github.liaoheng.common.util.ValidateUtils;
 import java.util.List;
 import me.liaoheng.starth.github.R;
@@ -53,7 +54,6 @@ public class RepositoriesFragment extends LazyFragment {
             return;
         }
         mRecyclerViewHelper = new RecyclerViewHelper.Builder(getActivity(), getContentView())
-                .setLayoutManager()
                 .setLoadMoreAndRefreshListener(new RecyclerViewHelper.RefreshListener() {
                     @Override public void onRefresh() {
                         load(mPage.refresh(), Page.PageState.REFRESH);
@@ -65,7 +65,7 @@ public class RepositoriesFragment extends LazyFragment {
                 }).addLoadMoreFooterView()
                 .setFooterLoadMoreListener(new RecyclerViewHelper.LoadMoreListener() {
                     @Override public void onLoadMore() {
-                        mRecyclerViewHelper.loading();
+                        mRecyclerViewHelper.changeToLoadMoreLoading();
                         load(mPage.more(), Page.PageState.MORE);
                     }
                 }).build();
@@ -84,22 +84,22 @@ public class RepositoriesFragment extends LazyFragment {
     private void load(final Page page, final Page.PageState state) {
         Observable<Response<List<Repositories>>> userStars = NetworkClient.get().getUserService()
                 .getUserRepos(user.getLogin(), page.getCurPage()).subscribeOn(Schedulers.io());
-        OkHttp3Utils.get().addSubscribe(userStars,
+       Utils.addSubscribe(userStars,
                 new Callback.EmptyCallback<Response<List<Repositories>>>() {
 
                     @Override public void onPreExecute() {
                         if (Page.PageState.isRefreshUI(state)) {
-                            mRecyclerViewHelper.setRefreshCallback(true);
+                            mRecyclerViewHelper.setSwipeRefreshing(true);
                         } else {
-                            mRecyclerViewHelper.setLoading(true);
+                            mRecyclerViewHelper.setLoadMoreLoading(true);
                         }
                     }
 
                     @Override public void onPostExecute() {
                         if (Page.PageState.isRefreshUI(state)) {
-                            mRecyclerViewHelper.setRefreshCallback(false);
+                            mRecyclerViewHelper.setSwipeRefreshing(false);
                         } else {
-                            mRecyclerViewHelper.setLoading(false);
+                            mRecyclerViewHelper.setLoadMoreLoading(false);
                         }
                     }
 
@@ -111,7 +111,7 @@ public class RepositoriesFragment extends LazyFragment {
                         NetworkClient.get().setPage(listResponse.headers(), page);
 
                         if (Page.PageState.isMoreData(state)) {
-                            mRecyclerViewHelper.setHasLoadedAllItems(page.isLast());
+                            mRecyclerViewHelper.setLoadMoreHasLoadedAllItems(page.isLast());
                         }
 
                         if (Page.PageState.isRefreshUI(state)) {

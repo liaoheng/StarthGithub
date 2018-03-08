@@ -72,10 +72,10 @@ public class UserLogin {
     }
 
     public void saveLoginInfo() {
-        PreferencesUtils.from(UserLogin.PreferenceFileName).put(UserLogin.PreferenceUserName, name)
-                .put(UserLogin.PreferenceAccessToken, accessToken)
-                .put(UserLogin.PreferenceUserLoginName, loginName)
-                .put(UserLogin.PreferenceUserAvatarUrl, avatar).put(UserLogin.PreferenceUserId, id)
+        PreferencesUtils.from(UserLogin.PreferenceFileName).putString(UserLogin.PreferenceUserName, name)
+                .putString(UserLogin.PreferenceAccessToken, accessToken)
+                .putString(UserLogin.PreferenceUserLoginName, loginName)
+                .putString(UserLogin.PreferenceUserAvatarUrl, avatar).putString(UserLogin.PreferenceUserId, id)
                 .apply();
         L.d(TAG, "saveLoginInfo : %s", this);
     }

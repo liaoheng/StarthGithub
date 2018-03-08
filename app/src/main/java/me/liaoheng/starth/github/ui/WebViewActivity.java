@@ -7,8 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import com.github.liaoheng.common.plus.core.WebHelper;
-import com.github.liaoheng.common.plus.view.WebViewLayout;
+import com.github.liaoheng.common.ui.core.WebHelper;
+import com.github.liaoheng.common.ui.view.WebViewLayout;
 import com.github.liaoheng.common.util.UIUtils;
 import me.liaoheng.starth.github.R;
 import me.liaoheng.starth.github.core.MenuItemHelper;
@@ -39,7 +39,7 @@ public class WebViewActivity extends BaseActivity {
 
         mMenuItemHelper = MenuItemHelper.with();
 
-        mWebHelper = WebHelper.with(UIUtils.findViewById(this, R.id.lcp_web_view));
+        mWebHelper = WebHelper.with(UIUtils.findViewById(this, R.id.lcu_web_view));
         mWebHelper.getWebView().setWebChromeClient(new WebChromeClient(this));
         WebSettings settings = mWebHelper.getWebView().getWebView().getSettings();
         settings.setSupportZoom(true);

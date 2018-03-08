@@ -3,7 +3,7 @@ package me.liaoheng.starth.github.adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import com.github.liaoheng.common.plus.core.ListDuplicateHelper;
+import com.github.liaoheng.common.core.ListDuplicateHelper;
 import java.util.List;
 import me.liaoheng.starth.github.R;
 import me.liaoheng.starth.github.adapter.viewholder.StarsViewHolder;
@@ -46,7 +46,7 @@ public class StarsAdapter extends BaseAdapter<Repositories, StarsViewHolder> {
         });
     }
 
-    @Override public void update(List<Repositories> list) {
+    public void update(List<Repositories> list) {
         mListDuplicateHelper.updateDuplicate(list, new ListDuplicateHelper.Key<Repositories>() {
             @Override public int getKey(Repositories item) {
                 return item.getId();
@@ -60,6 +60,6 @@ public class StarsAdapter extends BaseAdapter<Repositories, StarsViewHolder> {
     }
 
     @Override public void onBindViewHolderItem(StarsViewHolder holder, Repositories star, int position) {
-        holder.onHandle(star);
+        holder.onHandle(star,position);
     }
 }

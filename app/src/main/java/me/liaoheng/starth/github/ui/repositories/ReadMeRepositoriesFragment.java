@@ -7,10 +7,11 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.github.liaoheng.common.plus.util.OkHttp3Utils;
 import com.github.liaoheng.common.util.Callback;
 import com.github.liaoheng.common.util.L;
 import com.github.liaoheng.common.util.SystemException;
+import com.github.liaoheng.common.util.Utils;
+
 import java.io.FilenameFilter;
 import java.io.IOException;
 import me.liaoheng.starth.github.R;
@@ -67,7 +68,7 @@ public class ReadMeRepositoriesFragment extends LazyFragment {
                 .getRepositoriesReadMe(repositories.getOwner().getLogin(), repositories.getName())
                 .subscribeOn(Schedulers.io());
 
-        OkHttp3Utils.get()
+       Utils
                 .addSubscribe(repositoriesObservable, new Callback.EmptyCallback<ResponseBody>() {
                     @Override public void onPreExecute() {
                         mSwipeRefreshLayout.post(new Runnable() {

@@ -5,7 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.github.liaoheng.common.plus.adapter.holder.BaseRecyclerViewHolder;
+import com.github.liaoheng.common.adapter.holder.BaseRecyclerViewHolder;
 import com.github.liaoheng.common.util.UIUtils;
 import me.liaoheng.starth.github.R;
 import me.liaoheng.starth.github.model.Repositories;
@@ -27,7 +27,7 @@ public class RepositoriesViewHolder extends BaseRecyclerViewHolder<Repositories>
         ButterKnife.bind(this, itemView);
     }
 
-    @Override public void onHandle(Repositories item) {
+    @Override public void onHandle(Repositories item, int position) {
         UIUtils.viewGone(image);
         title.setText(item.getName());
         desc.setText(item.getDescription());

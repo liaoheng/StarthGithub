@@ -2,7 +2,10 @@ package me.liaoheng.starth.github.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import com.github.liaoheng.common.plus.adapter.BaseRecyclerAdapter;
+
+import com.github.liaoheng.common.adapter.base.BaseRecyclerAdapter;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,7 +16,7 @@ public abstract class BaseAdapter<K, V extends RecyclerView.ViewHolder>
         extends BaseRecyclerAdapter<K, V> {
 
     public BaseAdapter(Context context, List<K> list) {
-        super(context, list);
+        super(context, list == null ? new ArrayList<K>() : list);
     }
 
     public void itemInserted(int position) {

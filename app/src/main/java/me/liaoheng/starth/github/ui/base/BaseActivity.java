@@ -2,7 +2,7 @@ package me.liaoheng.starth.github.ui.base;
 
 import android.support.v4.content.ContextCompat;
 import com.flyco.systembar.SystemBarHelper;
-import com.github.liaoheng.common.plus.ui.CPRxBaseActivity;
+import com.github.liaoheng.common.ui.base.CURxBaseActivity;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrConfig;
 import me.liaoheng.starth.github.R;
@@ -12,7 +12,7 @@ import me.liaoheng.starth.github.R;
  *
  * @author liaoheng
  */
-public class BaseActivity extends CPRxBaseActivity {
+public class BaseActivity extends CURxBaseActivity {
 
     protected void initSlidrStatusBar(){
         initStatusBar();
