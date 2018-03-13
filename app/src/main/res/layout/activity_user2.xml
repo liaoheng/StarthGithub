@@ -10,7 +10,6 @@
       android:id="@+id/lcp_app_bar_layout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:fitsSystemWindows="true"
       android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
     <android.support.design.widget.CollapsingToolbarLayout
@@ -148,6 +147,7 @@
         </FrameLayout>
 
         <TextView
+                android:text="no bio"
             android:textSize="16sp"
             android:ellipsize="end"
             android:maxLines="3"

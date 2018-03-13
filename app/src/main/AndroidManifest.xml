@@ -32,7 +32,7 @@
         <activity
                 android:name=".ui.MainActivity"
                 android:configChanges="orientation|keyboardHidden|screenSize"
-                android:label="Starth"
+                android:label="@string/app_name"
                 android:launchMode="singleTask"
                 android:theme="@style/AppTheme.ToolBar" />
 

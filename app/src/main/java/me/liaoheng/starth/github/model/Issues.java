@@ -209,7 +209,7 @@ import java.util.List;
     public void setAssignees(List<User> assignees) {
         this.assignees = assignees;
     }
-
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public class Milestone {
         private String url;
         private String html_url;
@@ -347,7 +347,7 @@ import java.util.List;
             this.closed_at = closed_at;
         }
     }
-
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Labels {
         private String url;
         private String name;

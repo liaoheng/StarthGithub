@@ -1,6 +1,8 @@
 package me.liaoheng.starth.github.ui;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -11,17 +13,21 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+
 import com.bumptech.glide.Glide;
 import com.flyco.systembar.SystemBarHelper;
 import com.github.liaoheng.common.adapter.holder.BaseListViewHolder;
 import com.github.liaoheng.common.ui.core.TabPagerHelper;
 import com.github.liaoheng.common.ui.model.PagerTab;
 import com.github.liaoheng.common.util.UIUtils;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import me.liaoheng.starth.github.R;
 import me.liaoheng.starth.github.model.User;
 import me.liaoheng.starth.github.model.UserLogin;
@@ -30,23 +36,32 @@ import me.liaoheng.starth.github.util.Constants;
 
 /**
  * 主界面
+ *
  * @author liaoheng
  * @version 2016-06-24 19:39:37
  */
 public class MainActivity extends BaseActivity {
 
-    @BindView(R.id.drawer_layout)     DrawerLayout   mDrawerLayout;
+    @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
     @BindView(R.id.navigation_drawer) NavigationView mNavigationView;
 
     TabPagerHelper mTabPagerHelper;
 
-    @Override protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initToolBar();
-        SystemBarHelper.tintStatusBarForDrawer(this, mDrawerLayout,
-                ContextCompat.getColor(this, R.color.colorPrimaryDark), 0);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP_MR1) {
+            SystemBarHelper.tintStatusBarForDrawer(this, mDrawerLayout,
+                    ContextCompat.getColor(this, R.color.colorPrimaryDark), 0);
+        } else {
+            Window window = getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.TRANSPARENT);
+        }
 
         boolean login = UserLogin.get().isLogin();
         if (!login) {
@@ -70,25 +85,27 @@ public class MainActivity extends BaseActivity {
         mTabPagerHelper.getViewPager().setOffscreenPageLimit(3);
         mTabPagerHelper.setAdapter(getSupportFragmentManager(), getActivity(), pagerTab.getTabs(),
                 new TabPagerHelper.TabPagerOperation() {
-                    @Override public Fragment getItem(PagerTab tab, int position) {
+                    @Override
+                    public Fragment getItem(PagerTab tab, int position) {
                         return (Fragment) tab.getObject();
                     }
                 });
 
         View headerView = mNavigationView.getHeaderView(0);
-        new NavigationHeaderViewHolder(headerView).onHandle(user,0);
+        new NavigationHeaderViewHolder(headerView).onHandle(user, 0);
     }
 
     class NavigationHeaderViewHolder extends BaseListViewHolder<User> {
         @BindView(R.id.user_avatar) ImageView mUserAvatar;
-        @BindView(R.id.user_name)   TextView  mUserName;
+        @BindView(R.id.user_name) TextView mUserName;
 
         public NavigationHeaderViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        @OnClick(R.id.user_avatar) void openUserInfo() {
+        @OnClick(R.id.user_avatar)
+        void openUserInfo() {
             mDrawerLayout.closeDrawers();
             Intent intent = new Intent(getActivity(), UserInfoActivity.class);
             intent.putExtra(Constants.USER, UserLogin.get().getUser());
@@ -99,7 +116,8 @@ public class MainActivity extends BaseActivity {
             //UserInfoActivity.start(getActivity(), UserLogin.get().getUser());
         }
 
-        @Override public void onHandle(User item,int position) {
+        @Override
+        public void onHandle(User item, int position) {
             Glide.with(getContext()).load(UserLogin.get().getAvatar()).into(mUserAvatar);
             mUserName.setText(UserLogin.get().getName());
         }
@@ -108,7 +126,8 @@ public class MainActivity extends BaseActivity {
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override public boolean onNavigationItemSelected(MenuItem menuItem) {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
                         mDrawerLayout.closeDrawers();
                         if (menuItem.getItemId() == R.id.menu_main_drawer_about) {
                             AboutActivity.start(getActivity());
@@ -124,7 +143,8 @@ public class MainActivity extends BaseActivity {
         mDrawerLayout.openDrawer(GravityCompat.START);
     }
 
-    @Override public boolean onOptionsItemSelected(MenuItem item) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
         int itemId_ = item.getItemId();
         if (itemId_ == android.R.id.home) {
             home();
@@ -133,7 +153,8 @@ public class MainActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override protected void onDestroy() {
+    @Override
+    protected void onDestroy() {
         UIUtils.cancelToast();
         super.onDestroy();
     }
